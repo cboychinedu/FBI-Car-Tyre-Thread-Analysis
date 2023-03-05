@@ -1,13 +1,12 @@
 // Importing the necessary modules 
 import React, { Component, Fragment } from 'react';
-import { NavLink  } from 'react-router-dom';
-import Login from './Login';
-import { Input, Container, Checkbox, Form, Button } from "semantic-ui-react";
-import fbiSeal from "../Images/fbi.png"; 
+import { NavLink } from 'react-router-dom';
+import { Input, Container, Label, Form, Button } from "semantic-ui-react";
 import "../Css/App.css"; 
+import fbiSeal from "../Images/fbi.png"; 
 
 // Creating the functional component 
-let Home = (props) => {
+let Navbar = (props) => {
     // Rendering 
     return (
         <Fragment> 
@@ -20,9 +19,9 @@ let Home = (props) => {
                             </div>
                         </a>
                         <NavLink to="#" className="active item">Home</NavLink>
-                        <a to="#" className="item">Register</a>
-                        <a to="#" className="item">Login</a>
                         <a to="#" className="item"> News Feed </a>
+                        <a to="#" className="item"> Logout </a>
+
                     </nav>
                 </div>
 
@@ -33,14 +32,11 @@ let Home = (props) => {
                     </div>
                 
                 </div>
-            </div>
-
-            {/* Adding the login Component */}
-            <Login /> 
+            </div>            
         </Fragment>
     )
 
 }
 
-// Exporting the home page 
-export default Home; 
+// Exporting the Navbar page 
+export default Navbar;

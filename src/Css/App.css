@@ -1,0 +1,172 @@
+body {
+    margin: 0px 0px; 
+    padding: 0px 0px; 
+}
+.ui.inverted.segment.navbar-container {
+    padding-left: 40px; 
+}
+.ui.inverted.segment.left-nav {
+    float: right;
+    margin-top: -65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 46px;
+}
+.ui.segment.dashboard-main-div {
+    border: none;
+    margin: auto;
+    width: 60%;
+    margin-left: 15px;
+    height: 100%;
+}
+.ui.segment.description-main-div {
+    width: 50%;
+}
+.upload-image {
+    max-width: 50%;
+}
+.ui.fluid.container-heading {
+    margin: auto;
+    width: 59%;
+    height: 776px;
+    margin-top: 85px;
+     /* Add the blur effect */
+     /* filter: blur(8px);
+     -webkit-filter: blur(8px); */
+   
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+    background-repeat: no-repeat;
+}
+  
+  .bg-image {
+    height: 85vh;
+    /* The image used */
+    background-image: url("../Images/fbi_seal.jpeg");
+    
+    /* Add the blur effect */
+    -webkit-filter: blur(10px); /* Safari 6.0 - 9.0 */
+    filter: blur(5px);
+    
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:contain; 
+  }
+  
+  /* Position text in the middle of the page/image */
+  .bg-text {
+    /* background-color: rgba(0,0,0, 0.4); */
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    height: 506px;
+    width: 47%;
+    padding: 20px;
+    border-radius: 20px;
+}
+.center-div {
+    height: auto;
+    display: flex;
+    height: 300px;
+    justify-content: space-around; 
+}
+
+.ui.form .field>label.label-tag, 
+.ui.checkbox input.hidden+label {
+    color: white; 
+}
+.ui.button.submit-button {
+    width: 275px;
+    background: #0b0b53;
+    color: white;
+    font-weight: bold;
+}
+.fbi-seal-image {
+    height: 40px;
+    padding-top: 6px;
+    margin-right: 14px;
+}
+.fbi-badge-image {
+    height: 143px;
+    width: 112px;
+}
+.left-nav {
+    margin-bottom: -16px;
+    display: flex;
+}
+input[type="file"] {
+    width: 87px;
+    height: 50px;
+}
+.upload-image-file-div {
+    padding-top: 10px; 
+}
+.grid.container {
+    margin-top: 5em;
+}
+.inputfile {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+}
+.dashboard-section {
+    margin: auto;
+    width: 55%;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ui.button.perform-analysis {
+    float: left;
+    background-color: #0b0b53;
+    color: white; 
+    font-weight: bold;
+}
+.ui.button.perform-analysis:hover, 
+.ui.button.perform-analysis:focus {
+    background-color: blue;
+    color: white; 
+    font-weight: bold;
+}
+.upload-image-display {
+    height: 171px;
+    width: 317px;
+    margin-left: -57px;
+}
+.perform-analysis-button-div {
+    padding-top: 22px; 
+}
+.users-name-details {
+    padding-left: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #302b2bde;
+}
+.users-info-div {
+    display: flex;
+    height: 100px;
+    width: 405px;
+    margin-left: 36px;
+    margin-top: 16px;
+    padding-top: 19px;
+    align-items: center;
+    justify-content: center;
+}
+.profile-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 23px;
+    border: 2px solid #cbcbda;
+}

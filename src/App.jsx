@@ -1,8 +1,12 @@
 // Importing the necessary modules 
+import './Css/App.css'; 
 import React, { Component, Fragment } from 'react';
-import './App.css';
+import 'semantic-ui-css/semantic.min.css'; 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './Component/Home';
+import Dashboard from './Component/Dashboard';
 
-
+// Rendering the App component 
 class App extends Component {
   // Creating the state 
   state = {} 
@@ -11,8 +15,13 @@ class App extends Component {
   render() { 
     return (
       <Fragment> 
-        <h3> Thread Analysis </h3>
-
+        <BrowserRouter> 
+          {/* Setting the Routs configurations */}
+          <Routes> 
+              <Route exact path="/" element={<Home /> } /> 
+              <Route path="/dashboard" element={<Dashboard />} /> 
+          </Routes>
+          </BrowserRouter>
       </Fragment>
     );
   }
