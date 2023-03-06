@@ -22,6 +22,8 @@ router.post('/login', async (req, res) => {
         email: req.body.email
     })
 
+    console.log(req.header("x-auth-token"))
+
     // If the email address specified was not found on the database, 
     // execute the block of code below 
     if (!user) {
@@ -37,7 +39,44 @@ router.post('/login', async (req, res) => {
 
     // If the email address is found 
     else {
-        
+        // Execute the block of code below if the specified email address is 
+        // found on the database server 
+        let userPassword = req.body.password; 
+        let hashedPassword = user.password; 
+
+        // Checking if the hashed value is correct 
+        let passwordCondition = await bcrypt.compare(userPassword, hashedPassword); 
+
+        // Sending back a response if the password is validated 
+        if (passwordCondition) {
+            // Create a JWT token 
+            let token = jwt.sign({ 
+                email: user.email, 
+                isLoggedIn: true, 
+                id: user._id 
+            }, "token-password", { 
+                expiresIn: '1h' 
+            }); 
+
+            // Sending back the JWT token 
+            // process.env.JWT_SECRET
+            // Setting the header ---- 
+            /** We are here currently...  */
+            res.header('x-auth-token', token); 
+            return res.send(token);
+        }
+
+        // Else if the password is not validated 
+        else {
+            // Create an error message for the not validated password 
+            let errMessage = JSON.stringify({
+                "message": "Invalid email or password", 
+                "status": "error", 
+            })
+
+            // Sending back the error message to the client 
+            return res.send(errMessage); 
+        }
     }
 })
 
