@@ -54,8 +54,10 @@ router.post('/login', async (req, res) => {
                 email: user.email, 
                 isLoggedIn: true, 
                 id: user._id 
-            }, "token-password", { 
-                expiresIn: '1h' 
+            }, process.env.JWT_SECRET, 
+            { 
+                expiresIn: '250 days' 
+
             }); 
 
             // Sending back the JWT token 

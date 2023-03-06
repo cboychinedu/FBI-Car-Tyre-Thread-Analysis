@@ -2,9 +2,15 @@
 import React, { Component, Fragment } from 'react';
 import { NavLink  } from 'react-router-dom';
 import Login from './Login';
-import { Input, Container, Checkbox, Form, Button } from "semantic-ui-react";
 import fbiSeal from "../Images/fbi.png"; 
 import "../Css/App.css"; 
+import { 
+    Input, 
+    Container, 
+    Checkbox, 
+    Form, 
+    Button 
+} from "semantic-ui-react";
 
 // Creating the functional component 
 let Home = (props) => {

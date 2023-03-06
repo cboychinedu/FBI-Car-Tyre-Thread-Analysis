@@ -42,7 +42,7 @@ body {
     background-repeat: no-repeat;
 }
   
-  .bg-image {
+.bg-image {
     height: 85vh;
     /* The image used */
     background-image: url("../Images/fbi_seal.jpeg");
@@ -55,10 +55,10 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size:contain; 
-  }
+}
   
   /* Position text in the middle of the page/image */
-  .bg-text {
+.bg-text {
     /* background-color: rgba(0,0,0, 0.4); */
     color: white;
     font-weight: bold;
