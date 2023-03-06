@@ -5,25 +5,52 @@ import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
+import { AuthContext } from "./Auth/AuthContext"; 
 
 // Rendering the App component 
 class App extends Component {
-  // Creating the state 
-  state = {} 
+  // Getting the Auth context 
+  static contextType = AuthContext; 
 
   // Rendering the App component 
   render() { 
-    return (
-      <Fragment> 
-        <BrowserRouter> 
-          {/* Setting the Routs configurations */}
-          <Routes> 
-              <Route exact path="/" element={<Home /> } /> 
-              <Route path="/dashboard" element={<Dashboard />} /> 
-          </Routes>
+    const { isLoggedIn, xAuthToken, setToken } = this.context; 
+    console.log(xAuthToken); 
+
+    // If the token value, and isLoggedIn condition is true, 
+    // and present, redirect the user's 
+    // to the dashboard page 
+    if (isLoggedIn && xAuthToken) {
+      return (
+        <Fragment> 
+          <BrowserRouter> 
+            {/* Setting the Routs configurations */}
+            <Routes> 
+                <Route exact path="/" element={<Home />} /> 
+                <Route path="/dashboard" element={<Dashboard />} /> 
+                <Route path="*" element={<Dashboard />} /> 
+            </Routes>
+            </BrowserRouter>
+        </Fragment>
+      );
+
+    }
+
+    // If the conditions are false. 
+    else {
+      // Return the default non-login page 
+      return (
+        <Fragment> 
+          <BrowserRouter> 
+              {/* Setting the Routes configurations */}
+              <Routes>
+                  <Route exact path="/" element={<Home />} /> 
+                  <Route path="*" element={<Home />} /> 
+              </Routes>
           </BrowserRouter>
-      </Fragment>
-    );
+        </Fragment>
+      )
+    }
   }
 }
 
