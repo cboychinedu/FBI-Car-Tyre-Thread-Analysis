@@ -11,7 +11,19 @@ const mongodb = require('mongoose');
 const morgan = require('morgan'); 
 
 // Setting the data base URI 
-const databaseURI = "mongodb://localhost/"
+const databaseURI = "mongodb://localhost:27017/car_tyre_analysis"; 
+
+// Connecting to the mongodb database 
+mongodb.connect(databaseURI).then(() => {
+    // Connection details 
+    console.log('Connected to mongodb database server.'); 
+})
+// On error 
+.catch((error) => {
+    // On failure to connect to the database server 
+    console.log(error); 
+})
+
 
 // Building the express application
 const app = express();
@@ -53,5 +65,5 @@ app.use('/', home);
 // Running the nodjs server 
 app.listen(PORT, HOST, () => {
     // Displaying the connection status 
-    console.log(`The server is running on ${HOST + ':' + PORT}`); 
+    console.log(`The server is running on ${'http://'+ HOST + ':' + PORT}`); 
 })
