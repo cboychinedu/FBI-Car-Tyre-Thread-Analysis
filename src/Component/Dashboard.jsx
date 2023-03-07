@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import profileImage from "../Images/profile-image.png"; 
 import { AuthContext } from "../Auth/AuthContext"; 
 import threadImage from '../Images/car-type-thread-image.jpg'
 import { Header, Button, Image, Message } from "semantic-ui-react";
@@ -57,7 +58,7 @@ class Dashboard extends Component {
                 <Navbar />
 
                 <div className="users-info-div">
-                    <img className="profile-image" circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                    <img className="profile-image" circular src={profileImage} />
                     <p className="users-name-details"> {this.state.firstname} {this.state.lastname} </p>
                 </div>
 
