@@ -1,27 +1,28 @@
 // Importing the necessary modules
-const fs = require('fs'); 
-const express = require('express'); 
-const session = require('express-session'); 
-const cookieParser = require('cookie-parser'); 
-const fileupload = require('express-fileupload'); 
-const path = require('path'); 
-const bodyParser = require('body-parser'); 
-const { ObjectId } = require('mongodb'); 
-const mongodb = require('mongoose'); 
-const morgan = require('morgan'); 
+const fs = require('fs');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const fileupload = require('express-fileupload');
+const cors = require('cors'); 
+const bodyParser = require('body-parser');
+const { ObjectId } = require('mongodb');
+const mongodb = require('mongoose');
+const morgan = require('morgan');
+const chalk = require('chalk');
 
-// Setting the data base URI 
-const databaseURI = "mongodb://localhost:27017/car_tyre_analysis"; 
+// Setting the data base URI
+const databaseURI = "mongodb://localhost:27017/car_tyre_analysis";
 
-// Connecting to the mongodb database 
+// Connecting to the mongodb database
 mongodb.connect(databaseURI).then(() => {
-    // Connection details 
-    console.log('Connected to mongodb database server.'); 
+    // Connection details
+    let databaseMessage = chalk.red("Connected to mongodb database server.")
+    console.log(databaseMessage);
 })
-// On error 
+// On error
 .catch((error) => {
-    // On failure to connect to the database server 
-    console.log(error); 
+    // On failure to connect to the database server
+    console.log(error);
 })
 
 
@@ -38,6 +39,7 @@ const app = express();
 //   unset: 'destroy',
 //   cookie: { maxAge: oneWeekSession },
 // }));
+app.use(cors())
 app.use(cookieParser());
 app.use(express.json());
 app.use(fileupload())
@@ -48,22 +50,23 @@ app.use(express.static('./static/css'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
-// Setting the views 
-app.set('view engine', 'ejs'); 
-app.set('views', './views'); 
+// Setting the views
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-// Using the environment variable for HOST, and PORT 
-const PORT = process.env.PORT || 3001; 
-const HOST = process.env.HOST || 'localhost'; 
+// Using the environment variable for HOST, and PORT
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || 'localhost';
 
-// Importing the required routes 
-const home = require('./routes/homeRoute.js'); 
+// Importing the required routes
+const home = require('./routes/homeRoute.js');
 
-// Setting the routes configurations 
-app.use('/', home); 
+// Setting the routes configurations
+app.use('/', home);
 
-// Running the nodjs server 
+// Running the nodjs server
 app.listen(PORT, HOST, () => {
-    // Displaying the connection status 
-    console.log(`The server is running on ${'http://'+ HOST + ':' + PORT}`); 
+    // Displaying the connection status
+    let serverMessage = chalk.green.bold(`The server is running on ${'http://'+ HOST + ':' + PORT}`)
+    console.log(serverMessage);
 })

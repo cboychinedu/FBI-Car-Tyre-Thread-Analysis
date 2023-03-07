@@ -1,16 +1,69 @@
 // Importing the necessary modules 
 import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Checkbox, Form, Button } from 'semantic-ui-react';
 import fbiBadge from "../Images/fbi-badge.png"; 
+import { AuthContext } from "../Auth/AuthContext"; 
+import withRouter from "./WithRouter"; 
 import "../Css/App.css"; 
 
 
 // Creating the class based component 
 class Login extends Component {
-    // Setting the state 
-    state = {
+    // Getting the Auth context 
+    static contextType = AuthContext; 
 
+    // Creating a function for handling the forms 
+    // when submitted 
+    handleSubmit = (event) => {
+        // Getting the forms for email and password
+        let email = event.target[0].value; 
+        let password = event.target[1].value; 
+
+        // creating a json object 
+        let data = JSON.stringify({
+            email: email,
+            password: password
+        })
+
+        // Using Fetch request 
+        fetch('http://localhost:3001/login', {
+            method: 'POST', 
+            body: data, 
+            headers: { 'Content-type': 'application/json; charset=UTF-8', 'x-auth-token': 'test'}
+        })
+        // Convert the response data into a json object
+        .then(response => response.json())
+        .then(data => {
+            // Checking if the user was validated 
+            if (data.status === "success") {
+                // Getting the function for setting the token 
+                // and loggedIn value to be true 
+                let { setToken } = this.context; 
+                localStorage.setItem("x-auth-token", data['x-auth-token']);
+                setToken(data["x-auth-token"])
+
+                // Redirect the user 
+                // this.props.router.navigate('/dashboard'); 
+                window.location.reload(); 
+                this.props.router.navigate('/dashboard');
+
+            }
+
+            // Else if the user was not validated 
+            else {
+                alert("Invalid email or password")
+                
+            }
+    
+        })
+
+        // On error
+        .catch(error => {
+            console.log(error); 
+        })
+
+        // console.log('email', email); 
+        // console.log('password', password); 
     }
 
     // Rendering 
@@ -26,14 +79,14 @@ class Login extends Component {
                         <img src={fbiBadge} className="fbi-badge-image" /> 
                     </div>
                     <div className="center-div">  
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
-                                <label className="label-tag">First Name</label>
-                                <input placeholder='First Name' />
+                                <label className="label-tag"> Email Address </label>
+                                <input placeholder='Email address...' />
                             </Form.Field>
                             <Form.Field>
-                                <label className='label-tag'>Last Name</label>
-                                <input placeholder='Password' type="password" />
+                                <label className='label-tag'> Password </label>
+                                <input placeholder='Password...' type="password" />
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox className="label-tag" label='I agree to the Terms and Conditions' />
@@ -51,4 +104,4 @@ class Login extends Component {
 }
 
 // Exporting the Login Component 
-export default Login; 
+export default withRouter(Login); 

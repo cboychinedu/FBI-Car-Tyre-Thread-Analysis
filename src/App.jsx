@@ -7,6 +7,10 @@ import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
 import { AuthContext } from "./Auth/AuthContext"; 
 
+
+// Setting the token if present 
+let tokenValue = localStorage.getItem("x-auth-token") || null;
+
 // Rendering the App component 
 class App extends Component {
   // Getting the Auth context 
@@ -15,7 +19,9 @@ class App extends Component {
   // Rendering the App component 
   render() { 
     const { isLoggedIn, xAuthToken, setToken } = this.context; 
-    console.log(xAuthToken); 
+
+    // 
+    setToken(tokenValue);  
 
     // If the token value, and isLoggedIn condition is true, 
     // and present, redirect the user's 
@@ -26,7 +32,7 @@ class App extends Component {
           <BrowserRouter> 
             {/* Setting the Routs configurations */}
             <Routes> 
-                <Route exact path="/" element={<Home />} /> 
+                <Route exact path="/" element={<Dashboard />} /> 
                 <Route path="/dashboard" element={<Dashboard />} /> 
                 <Route path="*" element={<Dashboard />} /> 
             </Routes>
