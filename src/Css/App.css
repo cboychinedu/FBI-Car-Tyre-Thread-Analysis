@@ -239,3 +239,40 @@ p.fbi-bureau-para {
   background-color: rgb(182 167 167 / 15%); 
   color: white; 
 }
+.ui.form.register-form {
+  margin: auto;
+  width: 30%;
+  margin-top: 140px;
+  margin-bottom: 213px;
+}
+.field.checkbox-div {
+  display: flex;
+  padding-top: 1px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 7px;
+  padding-left: 5px;
+}
+.ui.form input[type=checkbox], .ui.form textarea  {
+  margin-top: 3px;
+  margin-right: 4px;
+}
+.ui.button.register-button {
+  height: 44px;
+  width: 160px;
+  background-color: #24495f;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+.ui.button.register-button:hover, 
+.ui.button.register-button:focus {
+  color: white; 
+  background-color: #183140;
+}
+.ui.message.alert-message {
+  font-size: 1em;
+  width: 297px;
+  margin-left: 35px;
+  margin-top: 25px;
+}

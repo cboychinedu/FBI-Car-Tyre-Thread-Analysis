@@ -1,6 +1,6 @@
 // Importing the necessary modules
 import React, { Fragment } from 'react';
-import { NavLink  } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import Login from './Login';
 import Footer from './Footer';
 import fbiSeal from "../Images/fbi.png";
@@ -14,15 +14,15 @@ let Home = (props) => {
             <div className="ui inverted segment navbar-container">
                 <div className="ui inverted secondary menu">
                     <nav className="left-nav">
-                        <NavLink to="#">
+                        <Link to="#">
                             <div style={{paddingTop: '7px'}}>
                                 <img src={fbiSeal} className="fbi-seal-image" alt="fbi-seal-image" />
                             </div>
-                        </NavLink>
-                        <NavLink to="#" className="active item">Home</NavLink>
-                        <NavLink to="#" className="item">Register</NavLink>
-                        <NavLink to="#" className="item">Login</NavLink>
-                        <NavLink to="#" className="item"> News Feed </NavLink>
+                        </Link>
+                        <Link to="/" className="item">Home</Link>
+                        <Link to="/register" className="item">Register</Link>
+                        <Link to="/login" className="item">Login</Link>
+                        <Link to="#" className="item"> News Feed </Link>
                     </nav>
                 </div>
 

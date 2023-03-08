@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
+import Register from './Component/Register';
 import { AuthContext } from "./Auth/AuthContext"; 
 
 
@@ -51,6 +52,7 @@ class App extends Component {
               {/* Setting the Routes configurations */}
               <Routes>
                   <Route exact path="/" element={<Home />} /> 
+                  <Route path="/register" element={<Register />} /> 
                   <Route path="*" element={<Home />} /> 
               </Routes>
           </BrowserRouter>

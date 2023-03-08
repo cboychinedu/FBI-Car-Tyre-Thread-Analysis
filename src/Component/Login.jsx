@@ -29,7 +29,7 @@ class Login extends Component {
         fetch('http://localhost:3001/login', {
             method: 'POST', 
             body: data, 
-            headers: { 'Content-type': 'application/json; charset=UTF-8', 'x-auth-token': 'test'}
+            headers: { 'Content-type': 'application/json; charset=UTF-8'}
         })
         // Convert the response data into a json object
         .then(response => response.json())

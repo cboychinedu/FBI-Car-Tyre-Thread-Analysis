@@ -146,64 +146,78 @@ router.post('/login', async (req, res) => {
 
 // Creating the register route
 router.post('/register', async (req, res) => {
-    // Searching the database to see if the user with the specified email
-    // address is registered on the database
-    let registeredUser = await USERS.findOne({ email: req.body.email });
+    // Using try, and catch block to connect to the database 
+    try {
+        // Searching the database to see if the user with the specified email
+        // address is registered on the database
+        let registeredUser = await USERS.findOne({ email: req.body.email });
 
-    // If the user exists exit the block of code below
-    if (registeredUser) {
-        // If the email is found create a response JSON message
-        let errMessage = JSON.stringify({
-            "message": "The user with the email address is registered",
-            "status": "user_registered"
-        })
-
-        // Sending the error message
-        return res.send(errMessage);
-    }
-
-    // If the email for the user is not found, execute the block of code
-    // below
-    else {
-        // Encrypt the password, connect to the database and save the user
-        let salt = await bcrypt.genSalt(5);
-        hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-        // Saving the new registered user
-        let newUser = await new USERS({
-            firstname: req.body.email,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            password: hashedPassword
-        });
-
-        // Saving the new user on the database
-        try {
-            // Save the new user, and return a successful message
-            let result = await newUser.save();
-            let successMessage = JSON.stringify({
-                "message": "User registered",
-                "status": "success"
-            });
-
-            // Return the success message
-            return res.send(successMessage);
-        }
-        // On error connecting to the database, log the error and return
-        // an error message
-        catch (error) {
-            // Logging the error
-            console.log(error);
+        // If the user exists exit the block of code below
+        if (registeredUser) {
+            // If the email is found create a response JSON message
             let errMessage = JSON.stringify({
-                "message": "error saving the data",
-                "status": "error"
+                "message": "The user with the email address is registered",
+                "status": "user_registered"
             })
 
             // Sending the error message
             return res.send(errMessage);
         }
-    }
 
+        // If the email for the user is not found, execute the block of code
+        // below
+        else {
+            // Encrypt the password, connect to the database and save the user
+            let salt = await bcrypt.genSalt(5);
+            hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+            // Saving the new registered user
+            let newUser = await new USERS({
+                firstname: req.body.email,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: hashedPassword
+            });
+
+            // Saving the new user on the database
+            try {
+                // Save the new user, and return a successful message
+                let result = await newUser.save();
+                let successMessage = JSON.stringify({
+                    "message": "User registered",
+                    "status": "success"
+                });
+
+                // Return the success message
+                return res.send(successMessage);
+            }
+            // On error connecting to the database, log the error and return
+            // an error message
+            catch (error) {
+                // Logging the error
+                console.log(error);
+                let errMessage = JSON.stringify({
+                    "message": "error saving the data",
+                    "status": "error"
+                })
+
+                // Sending the error message
+                return res.send(errMessage);
+            }
+        }
+
+    }
+    // Catch block 
+    catch (error) {
+        // Error connecting to the database 
+        let errMessage = JSON.stringify({
+            "message": "error connecting to the database", 
+            "status": "error", 
+        })
+
+        // Sending back the error message 
+        return res.send(errMessage); 
+    }
 })
 
 // Exporting the home router
