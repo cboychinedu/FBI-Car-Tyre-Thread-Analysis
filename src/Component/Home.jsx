@@ -1,17 +1,10 @@
 // Importing the necessary modules
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { NavLink  } from 'react-router-dom';
 import Login from './Login';
 import Footer from './Footer';
 import fbiSeal from "../Images/fbi.png";
 import "../Css/App.css";
-import {
-    Input,
-    Container,
-    Checkbox,
-    Form,
-    Button
-} from "semantic-ui-react";
 
 // Creating the functional component
 let Home = (props) => {
@@ -21,15 +14,15 @@ let Home = (props) => {
             <div className="ui inverted segment navbar-container">
                 <div className="ui inverted secondary menu">
                     <nav className="left-nav">
-                        <a>
+                        <NavLink to="#">
                             <div style={{paddingTop: '7px'}}>
-                                <img src={fbiSeal} className="fbi-seal-image" />
+                                <img src={fbiSeal} className="fbi-seal-image" alt="fbi-seal-image" />
                             </div>
-                        </a>
+                        </NavLink>
                         <NavLink to="#" className="active item">Home</NavLink>
-                        <a to="#" className="item">Register</a>
-                        <a to="#" className="item">Login</a>
-                        <a to="#" className="item"> News Feed </a>
+                        <NavLink to="#" className="item">Register</NavLink>
+                        <NavLink to="#" className="item">Login</NavLink>
+                        <NavLink to="#" className="item"> News Feed </NavLink>
                     </nav>
                 </div>
 

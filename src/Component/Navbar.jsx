@@ -1,9 +1,17 @@
 // Importing the necessary modules 
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Input, Container, Label, Form, Button } from "semantic-ui-react";
 import "../Css/App.css"; 
+import { Button } from 'semantic-ui-react';
 import fbiSeal from "../Images/fbi.png"; 
+
+// 
+const logout = () => {
+    // Clearing the sessions 
+    localStorage.clear() 
+    window.location.reload(); 
+    console.log('logout')
+}
 
 // Creating the functional component 
 let Navbar = (props) => {
@@ -13,14 +21,14 @@ let Navbar = (props) => {
             <div className="ui inverted segment navbar-container"> 
                 <div className="ui inverted secondary menu">
                     <nav className="left-nav"> 
-                        <a>
+                        <NavLink to="#">
                             <div style={{paddingTop: '7px'}}>
-                                <img src={fbiSeal} className="fbi-seal-image" /> 
+                                <img src={fbiSeal} className="fbi-seal-image" alt="fbi-seal" /> 
                             </div>
-                        </a>
+                        </NavLink>
                         <NavLink to="#" className="active item">Home</NavLink>
-                        <a to="#" className="item"> News Feed </a>
-                        <a to="#" className="item"> Logout </a>
+                        <NavLink to="#" className="item"> News Feed </NavLink>
+                        <Button className="logout-button" onClick={logout}> Logout </Button> 
 
                     </nav>
                 </div>

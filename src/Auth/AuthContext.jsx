@@ -13,6 +13,15 @@ class AuthContextProvider extends Component {
         // xAuthToken: "token-value" 
     }
 
+    // Creating a functon for loging out the user 
+    removeToken = () => {
+        // Changing the state 
+        this.setState({
+            isLoggedIn: false, 
+            xAuthToken: null, 
+        })
+    }
+
     // Creating a function for changing the state 
     setToken = (xTokenValue) => {
         // Setting the state if the user's token 
@@ -29,7 +38,13 @@ class AuthContextProvider extends Component {
         // Return the AuthContext Provider 
         return(
             <Fragment> 
-                <AuthContext.Provider value={{ ...this.state, setToken: this.setToken }} >
+                <AuthContext.Provider value={
+                    { 
+                        ...this.state, 
+                        setToken: this.setToken, 
+                        removeToken: this.removeToken 
+                    }} >
+
                     { this.props.children }
                 </AuthContext.Provider>
             </Fragment>

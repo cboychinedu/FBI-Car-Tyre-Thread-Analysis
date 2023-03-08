@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
+import Logout from './Component/Logout'; 
 import { AuthContext } from "./Auth/AuthContext"; 
 
 
@@ -34,6 +35,7 @@ class App extends Component {
             <Routes> 
                 <Route exact path="/" element={<Dashboard />} /> 
                 <Route path="/dashboard" element={<Dashboard />} /> 
+                <Route path="/logout" element={<Logout /> } /> 
                 <Route path="*" element={<Dashboard />} /> 
             </Routes>
             </BrowserRouter>

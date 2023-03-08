@@ -76,7 +76,7 @@ class Login extends Component {
                 <div className="bg-image"></div>
                 <div className="bg-text">
                     <div style={{textAlign: 'center'}}> 
-                        <img src={fbiBadge} className="fbi-badge-image" /> 
+                        <img src={fbiBadge} className="fbi-badge-image" alt="fbi-badge-image" /> 
                     </div>
                     <div className="center-div">  
                         <Form onSubmit={this.handleSubmit}>

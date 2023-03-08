@@ -1,12 +1,11 @@
 // Importing the necessary modules
 import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import profileImage from "../Images/profile-image.png"; 
 import { AuthContext } from "../Auth/AuthContext"; 
 import threadImage from '../Images/car-type-thread-image.jpg'
-import { Header, Button, Image, Message } from "semantic-ui-react";
+import { Button, Message } from "semantic-ui-react";
 import '../Css/App.css';
 
 // Creating the function componenet
@@ -43,10 +42,6 @@ class Dashboard extends Component {
                 lastname: data["lastname"]
             })
         })
-
-        // console.log(this.context)
-        // console.log(localStorage.getItem("x-auth-token"))
-        // console.log('Testing the component did mount')
     }
 
     // Rendering
@@ -58,14 +53,14 @@ class Dashboard extends Component {
                 <Navbar />
 
                 <div className="users-info-div">
-                    <img className="profile-image" circular src={profileImage} />
+                    <img className="profile-image" circular src={profileImage} alt="profile-image"/>
                     <p className="users-name-details"> {this.state.firstname} {this.state.lastname} </p>
                 </div>
 
                 {/* Adding the main div */}
                 <div className="dashboard-section">
                     <div className="ui segment description-main-div">
-                        <img className="upload-image-display" src={threadImage} />
+                        <img className="upload-image-display" src={threadImage} alt="upload-image-display"/>
                         <div className="upload-image-file-div">
                         <Message>
                             <Message.Header> Car Tyre Thread Analysis</Message.Header>
@@ -81,7 +76,7 @@ class Dashboard extends Component {
                     </div>
 
                     <div className="ui segment dashboard-main-div">
-                        <img className="upload-image" src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
+                        <img className="upload-image" alt="upload-image" src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
                         <br/>
                         <div className="upload-image-file-div">
                             <label for="embedpollfileinput" className="ui green left floated button green-button">
@@ -111,3 +106,8 @@ class Dashboard extends Component {
 
 // Exporting the dashboard page
 export default Dashboard;
+
+
+// console.log(this.context)
+// console.log(localStorage.getItem("x-auth-token"))
+// console.log('Testing the component did mount')

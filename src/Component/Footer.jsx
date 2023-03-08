@@ -1,5 +1,5 @@
 // Importing the necessary moduels
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import "../Css/App.css";
 import 'semantic-ui-css/semantic.min.css';
@@ -37,7 +37,7 @@ let Footer = (props) => {
               <ul className="ui inverted inner-footer">
                 <li className="list-items fbi-logo-and-header">
                   <div>
-                    <img src={fbiSeal} className="fbi-footer-logo-image"/>
+                    <img src={fbiSeal} className="fbi-footer-logo-image" alt="fbi-footer-logo-image"/>
                   </div>
                   <h1 className="ui inverted header footer-header fbi-header">FBI</h1>
                   <p className="fbi-bureau-para"> FEDERAL BUREAU <br/> OF INVESTIGATION </p>
