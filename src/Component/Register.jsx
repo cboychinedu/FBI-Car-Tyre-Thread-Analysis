@@ -11,7 +11,7 @@ class Register extends Component {
     // Creating the state 
     state = {
         message: "",
-        display: "none"
+        display: ""
     }
 
     // Creating a form for handling the forms when submitted 
@@ -21,19 +21,50 @@ class Register extends Component {
 
         // Getting the users data 
         let firstname = event.target[0].value; 
-        let lastname = event.target[0].value; 
-        let emailAddress = event.target[0].value; 
-        let password = event.target[0].value; 
+        let lastname = event.target[1].value; 
+        let emailAddress = event.target[2].value; 
+        let password = event.target[3].value; 
+
+        console.log(lastname === '')
 
         // Checking if the data is valid and creating the form 
         // and sending it to the server. 
-        if (firstname === '' || lastname === '' || emailAddress === '' || password === '') {
+        if (firstname === '') { 
             // Setting the state as "To fill all the fields" 
             this.setState({
-                message: 'Please fill in all the fields', 
+                message: 'Please fill in your firstname ...', 
                 display: "grid", 
             });
+            return; 
         } 
+
+        else if ( lastname === '' ) {
+            // Setting the state as "To fill all the fields" 
+            this.setState({
+                message: 'Please fill in your lastname ...', 
+                display: "grid", 
+            });
+            return; 
+        }
+
+        else if ( emailAddress === '' ) {
+            // Setting the state as "To fill all the fields" 
+            this.setState({
+                message: 'Please fill in your email ...', 
+                display: "grid", 
+            });
+            return; 
+        }
+
+        else if ( password === '' ) {
+            // Setting the state as "To fill all the fields" 
+            this.setState({
+                message: 'Please fill in your password ...', 
+                display: "grid", 
+            });
+            return; 
+        }
+
         // Else 
         else {
             // Setting the state to empty 
@@ -62,6 +93,7 @@ class Register extends Component {
             .then(response => response.json())
             .then(data => {
                 // Checking if the user was registered 
+                console.log(data); 
                 
             })
             // this.props.register(firstname, lastname, emailAddress, password);
@@ -99,23 +131,68 @@ class Register extends Component {
                 </div>
 
                 {/* Alert message */}
-                <Message className="alert-message" style={{display: this.state.display}}>
-                    {this.state.message}
-                </Message>
+                <div className="alert-div"> 
+                    <Message className="alert-message" style={{display: this.state.display}}>
+                        {this.state.message}
+                    </Message>
+                </div>
 
                 {/* Adding the registration forms */}
                     <Form className="register-form" onSubmit={this.handleSubmit}>
                         <Form.Field>
                             <label>First Name</label>
-                            <input placeholder='First Name...' type="text"/>
+                            <input placeholder='First Name...' type="text" onChange={(event) => {
+                                if (event.target.value === "") {
+                                    this.setState({
+                                        display: "", 
+                                    })
+                                }
+
+                                else {
+                                    this.setState({
+                                        display: "grid", 
+                                        message: event.target.value,
+                                    })
+                                }
+                            }}/>
                         </Form.Field>
                         <Form.Field>
                             <label>Last Name</label>
-                            <input placeholder='Last Name...' type="text"/>
+                            <input placeholder='Last Name...' type="text" onChange={(event) => {
+                                if (event.target.value === "") {
+                                    this.setState({
+                                        display: "", 
+                                    })
+                                }
+
+                                else {
+                                    // Changing the state 
+                                    this.setState({ 
+                                        message: event.target.value, 
+                                        display: "grid", 
+                                    }); 
+                                }
+                                
+                            }}/>
                         </Form.Field>
                         <Form.Field>
                             <label>Email Address</label>
-                            <input placeholder='Email...' type="email" />
+                            <input placeholder='Email...' type="email" onChange={(event) => {
+                                if (event.target.value === "") {
+                                    this.setState({
+                                        display: "", 
+                                    })
+                                }
+                                else {
+                                    // Changing the state 
+                                    this.setState({ 
+                                        message: event.target.value, 
+                                        display: "grid", 
+                                });
+
+                                }
+
+                            }}/>
                         </Form.Field>
                         <Form.Field>
                             <label>Password</label>

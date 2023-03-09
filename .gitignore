@@ -7,6 +7,9 @@
 /dataset
 /node-backend-server/node_modules
 
+# Tar files 
+node_modules.tar
+
 
 # testing
 /coverage
