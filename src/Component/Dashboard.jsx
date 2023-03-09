@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import uploadImage from "../Images/image.png";
 import profileImage from "../Images/profile-image.png"; 
 import { AuthContext } from "../Auth/AuthContext"; 
 import threadImage from '../Images/car-type-thread-image.jpg'
@@ -20,6 +21,11 @@ class Dashboard extends Component {
     static contextType = AuthContext; 
 
     // 
+    uploadImage = (event) => {
+        console.log(event); 
+    }
+
+    // 
     componentDidMount() {
         // Making a fetch request to the server, with the 
         // x-auth-token to render the logged in user, with 
@@ -35,6 +41,8 @@ class Dashboard extends Component {
         // On success, convert the response into a json object 
         .then(response => response.json())
         .then(data => {
+
+            console.log(data)
 
             // Setting the state 
             this.setState({
@@ -76,10 +84,11 @@ class Dashboard extends Component {
                     </div>
 
                     <div className="ui segment dashboard-main-div">
-                        <img className="upload-image" alt="upload-image" src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
+                        <img className="upload-image" alt="upload-image" src={uploadImage} wrapped />
                         <br/>
                         <div className="upload-image-file-div">
-                            <label for="embedpollfileinput" className="ui green left floated button green-button">
+                            <label for="embedpollfileinput" className="ui green left floated button green-button"
+                                onClick={this.uploadImage}>
                                 <i className="ui upload icon"></i>
                                 Upload image
                             </label>

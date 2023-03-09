@@ -174,7 +174,7 @@ router.post('/register', async (req, res) => {
 
             // Saving the new registered user
             let newUser = await new USERS({
-                firstname: req.body.email,
+                firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: hashedPassword

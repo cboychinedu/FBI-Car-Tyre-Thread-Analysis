@@ -25,8 +25,6 @@ class Register extends Component {
         let emailAddress = event.target[2].value; 
         let password = event.target[3].value; 
 
-        console.log(lastname === '')
-
         // Checking if the data is valid and creating the form 
         // and sending it to the server. 
         if (firstname === '') { 
