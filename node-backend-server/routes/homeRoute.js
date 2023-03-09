@@ -105,6 +105,7 @@ router.post('/login', async (req, res) => {
 
         // Sending back a response if the password is validated
         if (passwordCondition) {
+            // Try, Catch block 
             // Create a JWT token
             let token = jwt.sign({
                 email: user.email,
