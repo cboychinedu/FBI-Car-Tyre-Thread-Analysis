@@ -4,6 +4,7 @@ const session = require('express-session');
 const mongodb_session = require('connect-mongodb-session')(session);
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const { rootPath } = require('../base.js')
 const { USERS } = require('../models/validation.js');
 const joi = require('joi');
 const bcrypt = require('bcrypt');
@@ -13,6 +14,116 @@ const router = express.Router();
 
 // Creating a session variable
 let sess;
+
+// Setting up a route for fetching the image 
+router.post("/uploadImage", async(req, res) => {
+    // Getting the user's token from the header 
+    let token = req.header('x-auth-token'); 
+
+    // Using try, catch block 
+    try {
+        // Decoding the token 
+        let userData = jwt.decode(token); 
+
+        // Searching the database to see if the user with 
+        // the decoded token value is registered on the server 
+        const user = await USERS
+        .findOne({
+            email: userData.email
+        })
+        .select({
+            id: 1, 
+
+        })
+
+        // Getting the data 
+        let dateData = Date(); 
+        dateData = dateData.split("GMT+0100")[0]; 
+        dateData = dateData.toString().trimEnd(); 
+
+        // if the user is present on the database, 
+        // execute the block of code below 
+        if (user) {
+            // Getting the uploaded image 
+            const image = req.files.image; 
+
+            // giving the name by the id value 
+            let imageName = dateData + '.' + image['name'].split('.')[1]; 
+
+            imageName = String(imageName); 
+
+            // Setting the path to the image 
+            const imagePath = path.join(rootPath, 'static', 'uploads', imageName); 
+
+            // Moving the uploaded image file into the specified directory 
+            image.mv(imagePath, async(error) => {
+
+                
+                if (error) {
+                    // Specify the content type header as "application/json" file format 
+                    res.writeHead(500, {
+                        'Content-Type': 'application/json'
+                    })
+
+                    // Create the error message 
+                    let errorMsg = JSON.stringify({ status: 'error', message: 'Failed to upload image file'})
+
+                    // 
+                    return res.end(errorMsg); 
+                }
+
+                // Else if the upload was successful 
+                else {
+                    // Specify the content type header 
+                    res.writeHead(200, {
+                        'Content-Type': 'application/json'
+                    })
+
+                    // Updating the file path on the database 
+                    // and saving the updates 
+                    // user.filePath = imagePath; 
+                    // const result = await user.save()
+
+                    // Create the success message and send back the 
+                    // response 
+                    let successMessage = JSON.stringify({
+                        "status": "success", 
+                        "message": "Successfully uploaded the image"
+                    })
+
+                    // Return the message 
+                    return res.end(successMessage); 
+                }
+            })
+        }
+
+        // Else 
+        else {
+            // Creating the error message 
+            let errorMessage = JSON.stringify({
+                "status": "error", 
+                "message": "Token not found on the database", 
+            }); 
+
+            // Return the message 
+            return res.send(errorMessage); 
+        }
+    }
+    // Catch block 
+    catch (error) {
+        console.log(error); 
+
+        // Create the error message 
+        let errorMessage = JSON.stringify({
+            "status": "error", 
+            "message": "Error connecting to the database"
+        })
+
+        // Sending back the error message 
+        return res.send(errorMessage); 
+    }
+
+})
 
 // Setting up a route to fetch the logged in user 
 // details 

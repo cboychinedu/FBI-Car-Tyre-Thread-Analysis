@@ -46,9 +46,16 @@ class Dashboard extends Component {
         ); 
 
         // Details of the uploaded file 
-        axios.post("api/uploadfile", formData);
+        axios.post("http://localhost:3001/uploadImage", formData, {
+            headers: {
+                // 'Content-Type': 'application/json', 
+                'x-auth-token': localStorage.getItem("x-auth-token"), 
+            }
+        })
+        .then((request) => {
+            console.log(request); 
+        });
     }
-
     // 
     componentDidMount() {
         // Making a fetch request to the server, with the 
@@ -66,7 +73,7 @@ class Dashboard extends Component {
         .then(response => response.json())
         .then(data => {
 
-            console.log(data)
+            // console.log(data)
 
             // Setting the state 
             this.setState({
