@@ -88,7 +88,8 @@ router.post("/uploadImage", async(req, res) => {
                     // response 
                     let successMessage = JSON.stringify({
                         "status": "success", 
-                        "message": "Successfully uploaded the image"
+                        "message": "Successfully uploaded the image", 
+                        "imagePath": imagePath
                     })
 
                     // Return the message 

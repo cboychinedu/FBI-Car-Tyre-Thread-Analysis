@@ -17,6 +17,7 @@ class Dashboard extends Component {
         firstname: "", 
         lastname: "", 
         selectedFile: null, 
+        imagePath: uploadImage || "", 
     }
 
     // Getting the Auth context 
@@ -117,7 +118,7 @@ class Dashboard extends Component {
                     </div>
 
                     <div className="ui segment dashboard-main-div">
-                        <img className="upload-image" alt="upload-image" src={uploadImage} wrapped />
+                        <img className="upload-image" alt="upload-image" src={this.state.imagePath} wrapped />
                         <br/>
                         <div className="upload-image-file-div">
                             <label for="embedpollfileinput" className="ui green left floated button green-button"
