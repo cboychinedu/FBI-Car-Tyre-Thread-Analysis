@@ -146,7 +146,8 @@ input[type="file"] {
     margin-left: -57px;
 }
 .perform-analysis-button-div {
-    padding-top: 22px;
+    padding-top: 0px;
+    margin-top: 0;
 }
 .users-name-details {
     padding-left: 12px;
@@ -287,4 +288,9 @@ p.fbi-bureau-para {
   width: 370px;
   margin-left: 35px;
   margin-top: 25px;
+}
+input[type="file"] {
+  width: 89px;
+  border: none;
+  height: 22px;
 }
