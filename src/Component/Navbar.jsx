@@ -29,6 +29,7 @@ let Navbar = (props) => {
                         <NavLink to="#" className="active item">Home</NavLink>
                         <NavLink to="#" className="item"> News Feed </NavLink>
                         <Button className="logout-button" onClick={logout}> Logout </Button> 
+                        <Button className="logout-button" > History </Button>
 
                     </nav>
                 </div>

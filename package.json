@@ -15,7 +15,9 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "sweetalert2": "^11.7.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "winston": "^3.8.2",
+    "winston-react": "^1.0.0-RC.0"
   },
   "scripts": {
     "start": "react-scripts start",

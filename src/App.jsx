@@ -8,7 +8,6 @@ import Dashboard from './Component/Dashboard';
 import Register from './Component/Register';
 import { AuthContext } from "./Auth/AuthContext"; 
 
-
 // Setting the token if present 
 let tokenValue = localStorage.getItem("x-auth-token") || null;
 

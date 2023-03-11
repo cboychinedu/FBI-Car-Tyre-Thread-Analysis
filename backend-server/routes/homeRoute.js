@@ -15,169 +15,181 @@ const router = express.Router();
 // Creating a session variable
 let sess;
 
-// Setting up a route for fetching the image 
+// Setting a route for getting image
+router.get('/:imageName', async (req, res) => {
+  // Getting the image name
+  let imageName = String(req.params) || "";
+
+  // let full path
+  let fullImagePath = path.join(rootPath, 'static', 'uploads', imageName)
+
+  res.sendFile(fullImagePath);
+
+})
+
+// Setting up a route for fetching the image
 router.post("/uploadImage", async(req, res) => {
-    // Getting the user's token from the header 
-    let token = req.header('x-auth-token'); 
+    // Getting the user's token from the header
+    let token = req.header('x-auth-token');
 
-    // Using try, catch block 
+    // Using try, catch block
     try {
-        // Decoding the token 
-        let userData = jwt.decode(token); 
+        // Decoding the token
+        let userData = jwt.decode(token);
 
-        // Searching the database to see if the user with 
-        // the decoded token value is registered on the server 
+        // Searching the database to see if the user with
+        // the decoded token value is registered on the server
         const user = await USERS
         .findOne({
             email: userData.email
         })
         .select({
-            id: 1, 
+            id: 1,
 
         })
 
-        // Getting the data 
-        let dateData = Date(); 
-        dateData = dateData.split("GMT+0100")[0]; 
-        dateData = dateData.toString().trimEnd(); 
+        // Getting the data
+        let dateData = Date();
+        dateData = dateData.split("GMT+0100")[0];
+        dateData = dateData.toString().trimEnd();
 
-        // if the user is present on the database, 
-        // execute the block of code below 
+        // if the user is present on the database,
+        // execute the block of code below
         if (user) {
-            // Getting the uploaded image 
-            const image = req.files.image; 
+            // Getting the uploaded image
+            const image = req.files.image;
 
-            // giving the name by the id value 
-            let imageName = dateData + '.' + image['name'].split('.')[1]; 
+            // giving the name by the id value
+            let imageName = dateData + '.' + image['name'].split('.')[1];
 
-            imageName = String(imageName); 
+            imageName = String(imageName);
 
-            // Setting the path to the image 
-            const imagePath = path.join(rootPath, 'static', 'uploads', imageName); 
+            // Setting the path to the image
+            const imagePath = path.join(rootPath, 'static', 'uploads', imageName);
 
-            // Moving the uploaded image file into the specified directory 
+            // Moving the uploaded image file into the specified directory
             image.mv(imagePath, async(error) => {
 
-                
+
                 if (error) {
-                    // Specify the content type header as "application/json" file format 
+                    // Specify the content type header as "application/json" file format
                     res.writeHead(500, {
                         'Content-Type': 'application/json'
                     })
 
-                    // Create the error message 
+                    // Create the error message
                     let errorMsg = JSON.stringify({ status: 'error', message: 'Failed to upload image file'})
 
-                    // 
-                    return res.end(errorMsg); 
+                    //
+                    return res.end(errorMsg);
                 }
 
-                // Else if the upload was successful 
+                // Else if the upload was successful
                 else {
-                    // Specify the content type header 
+                    // Specify the content type header
                     res.writeHead(200, {
                         'Content-Type': 'application/json'
                     })
 
-                    // Updating the file path on the database 
-                    // and saving the updates 
-                    // user.filePath = imagePath; 
+                    // Updating the file path on the database
+                    // and saving the updates
+                    // user.filePath = imagePath;
                     // const result = await user.save()
 
-                    // Create the success message and send back the 
-                    // response 
+                    // Create the success message and send back the
+                    // response
                     let successMessage = JSON.stringify({
-                        "status": "success", 
-                        "message": "Successfully uploaded the image", 
+                        "status": "success",
+                        "message": "Successfully uploaded the image",
                         "imagePath": imagePath
                     })
 
-                    // Return the message 
-                    return res.end(successMessage); 
+                    // Return the message
+                    return res.end(successMessage);
                 }
             })
         }
 
-        // Else 
+        // Else
         else {
-            // Creating the error message 
+            // Creating the error message
             let errorMessage = JSON.stringify({
-                "status": "error", 
-                "message": "Token not found on the database", 
-            }); 
+                "status": "error",
+                "message": "Token not found on the database",
+            });
 
-            // Return the message 
-            return res.send(errorMessage); 
+            // Return the message
+            return res.send(errorMessage);
         }
     }
-    // Catch block 
+    // Catch block
     catch (error) {
-        console.log(error); 
+        console.log(error);
 
-        // Create the error message 
+        // Create the error message
         let errorMessage = JSON.stringify({
-            "status": "error", 
+            "status": "error",
             "message": "Error connecting to the database"
         })
 
-        // Sending back the error message 
-        return res.send(errorMessage); 
+        // Sending back the error message
+        return res.send(errorMessage);
     }
 
 })
 
-// Setting up a route to fetch the logged in user 
-// details 
+// Setting up a route to fetch the logged in user
+// details
 router.post('/user-details', async (req, res) => {
     // Getting the user's token from the header
     let token = req.header('x-auth-token')
 
-    // Using try, catch block 
+    // Using try, catch block
     try {
         // Decoding the token
         let userData = jwt.decode(token)
 
-        // Searching the database to see if the user with the specified email 
-        // address from the token is registered on the databae 
+        // Searching the database to see if the user with the specified email
+        // address from the token is registered on the databae
         let user = await USERS.findOne({
             email: userData.email
         })
         .select({id: 1, firstname: 1, lastname: 1, email: 1})
 
-        // If the user is present on the database, execute the 
-        // block of code below 
+        // If the user is present on the database, execute the
+        // block of code below
         if (user) {
-            // Send back the user 
-            return res.send(JSON.stringify(user)); 
+            // Send back the user
+            return res.send(JSON.stringify(user));
         }
 
-        // Else 
+        // Else
         else {
-            // Create an error message 
+            // Create an error message
             let errorMessage = JSON.stringify({
-                "message": "User not found on the database", 
+                "message": "User not found on the database",
                 "status": "error"
             })
 
-            // Sending back the message 
-            return res.send(errorMessage); 
+            // Sending back the message
+            return res.send(errorMessage);
         }
     }
 
-    // On error connecting to the database, and decoding the 
-    // token data, execute the block of code below 
+    // On error connecting to the database, and decoding the
+    // token data, execute the block of code below
     catch (error) {
-        // Catch, and log the error 
-        console.log(error); 
+        // Catch, and log the error
+        console.log(error);
 
-        // Create an error message, and send it to the user 
+        // Create an error message, and send it to the user
         let errorMessage = JSON.stringify({
-            "message": "User not found on the database", 
+            "message": "User not found on the database",
             "status": "error"
         })
 
-        // Sending back the error message 
-        return res.send(errorMessage); 
+        // Sending back the error message
+        return res.send(errorMessage);
     }
 
 })
@@ -217,7 +229,7 @@ router.post('/login', async (req, res) => {
 
         // Sending back a response if the password is validated
         if (passwordCondition) {
-            // Try, Catch block 
+            // Try, Catch block
             // Create a JWT token
             let token = jwt.sign({
                 email: user.email,
@@ -234,9 +246,9 @@ router.post('/login', async (req, res) => {
             /** We are here currently...  */
             // res.set('x-auth-token', token);
             let successMessage = JSON.stringify({
-                "message": "Logged in successfully", 
-                "status": "success", 
-                "x-auth-token": token, 
+                "message": "Logged in successfully",
+                "status": "success",
+                "x-auth-token": token,
             })
 
             // Sending back the success message
@@ -259,7 +271,7 @@ router.post('/login', async (req, res) => {
 
 // Creating the register route
 router.post('/register', async (req, res) => {
-    // Using try, and catch block to connect to the database 
+    // Using try, and catch block to connect to the database
     try {
         // Searching the database to see if the user with the specified email
         // address is registered on the database
@@ -320,16 +332,16 @@ router.post('/register', async (req, res) => {
         }
 
     }
-    // Catch block 
+    // Catch block
     catch (error) {
-        // Error connecting to the database 
+        // Error connecting to the database
         let errMessage = JSON.stringify({
-            "message": "error connecting to the database", 
-            "status": "error", 
+            "message": "error connecting to the database",
+            "status": "error",
         })
 
-        // Sending back the error message 
-        return res.send(errMessage); 
+        // Sending back the error message
+        return res.send(errMessage);
     }
 })
 

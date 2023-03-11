@@ -17,6 +17,7 @@ class Dashboard extends Component {
         firstname: "", 
         lastname: "", 
         selectedFile: null, 
+        imageName: "", 
         imagePath: uploadImage || "", 
     }
 
@@ -56,11 +57,19 @@ class Dashboard extends Component {
         .then((request) => {
             // Checking request 
             if (request.data.status === "success") {
-                // console.log(request.data.imagePath)
+                // Getting the image name 
+                let imageName = request.data.imagePath
+                imageName = imageName.split("/uploads/")[1]; 
+                imageName = imageName.trimEnd(); 
+
+
+                console.log(imageName)
+
+
                 // Setting the state 
                 this.setState({
-                    // 
-                    imagePath: `${request.data.imagePath}`, 
+                    //  
+                    imagePath: `http://localhost:3001/${imageName}`
                 })
             }
             console.log(request); 

@@ -124,6 +124,7 @@ input[type="file"] {
     margin: auto;
     width: 55%;
     margin-top: 100px;
+    margin-bottom: 425px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -293,4 +294,7 @@ input[type="file"] {
   width: 89px;
   border: none;
   height: 22px;
+}
+.swal2-styled.swal2-confirm {
+  background-color: #1861bf;
 }
