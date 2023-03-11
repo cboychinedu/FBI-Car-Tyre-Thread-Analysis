@@ -122,7 +122,7 @@ class Register extends Component {
                                 // Navigating the user 
                                 this.props.router.navigate('/login')
 
-                            }, 3000)
+                            }, 2000)
                            
                         }
                     });
