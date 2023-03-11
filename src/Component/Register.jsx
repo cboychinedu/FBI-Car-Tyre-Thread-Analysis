@@ -2,24 +2,12 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Message } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { sweetAlert } from './SweetAlert';
 import { Link } from 'react-router-dom';
 import Footer from './Footer'; 
 import fbiSeal from '../Images/fbi.png'; 
 import withRouter from './WithRouter';
 import '../Css/App.css'; 
-
-
-// Creating a function for sweetAlert 
-const sweetAlert = (icon, title, message, text) => {
-    // Create sweet alert 
-    Swal.fire({
-        title: `${title}`, 
-        icon: icon,
-        html: ``, 
-        text: message, 
-        confirmButtonText: "Okay"
-    }); 
-}
 
 // Creating the class component 
 class Register extends Component {

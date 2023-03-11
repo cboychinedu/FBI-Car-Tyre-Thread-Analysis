@@ -4,6 +4,8 @@ import { Checkbox, Form, Button } from 'semantic-ui-react';
 import fbiBadge from "../Images/fbi-badge.png"; 
 import { AuthContext } from "../Auth/AuthContext"; 
 import withRouter from "./WithRouter"; 
+import { sweetAlert } from './SweetAlert'; 
+import Swal from 'sweetalert2';
 import "../Css/App.css"; 
 
 
@@ -18,6 +20,20 @@ class Login extends Component {
         // Getting the forms for email and password
         let email = event.target[0].value; 
         let password = event.target[1].value; 
+
+        // Checking if the forms are valid 
+        if (email === '') {
+            // Using swee Alert to display the info 
+            sweetAlert('info', 'Email required', 'Please fill in your email address'); 
+            return; 
+        }
+
+        // Checking for password 
+        else if (password === '') {
+            // Using sweet alert to display the info 
+            sweetAlert('info', 'Password required', 'Please fill in your password'); 
+            return; 
+        }
 
         // creating a json object 
         let data = JSON.stringify({
@@ -42,16 +58,49 @@ class Login extends Component {
                 localStorage.setItem("x-auth-token", data['x-auth-token']);
                 setToken(data["x-auth-token"])
 
-                // Redirect the user 
-                // this.props.router.navigate('/dashboard'); 
-                window.location.reload(); 
-                this.props.router.navigate('/dashboard');
+                setTimeout(() => {
+                    // Navigating the user 
+                    this.props.router.navigate('/dashboard')
+                    window.location.reload(); 
 
-            }
+                }, 3000)
+
+                // Using swal alert 
+                Swal.fire({
+                    title: "Login Successful!",
+                    text: "You are now logged in!",
+                    icon: "success",
+                    button: "Okay..",
+                })
+                
+                .then((result) => {
+                    // 
+                    if (result.isConfirmed) {
+        
+                        setTimeout(() => {
+                            // Navigating the user 
+                            this.props.router.navigate('/dashboard')
+                            window.location.reload(); 
+
+                        }, 200)
+
+                    }
+
+                    // 
+                    else {
+                        // Navigating the user 
+                        // this.props.router.navigate('/dashboard')
+                        window.location.reload();
+                    }
+
+                })
+
+            } 
 
             // Else if the user was not validated 
             else {
-                alert("Invalid email or password")
+                // alert("Invalid email or password")
+                sweetAlert('error', 'Invalid email or password', 'Invalid email or password')
                 
             }
     
