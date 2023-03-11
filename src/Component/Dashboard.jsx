@@ -54,8 +54,43 @@ class Dashboard extends Component {
             }
         })
         .then((request) => {
+            // Checking request 
+            if (request.data.status === "success") {
+                // console.log(request.data.imagePath)
+                // Setting the state 
+                this.setState({
+                    // 
+                    imagePath: `${request.data.imagePath}`, 
+                })
+            }
             console.log(request); 
         });
+    }
+
+    // 
+    performAnalysis = async (event) => {
+        // 
+        let imageName = this.state.imagePath; 
+        imageName = imageName.split("/uploads/")[1].trimEnd();
+        let data = JSON.stringify({
+            "image_path": imageName, 
+        }) 
+
+        // 
+        await fetch('http://localhost:5001', {
+            method: 'POST', 
+            body: data, 
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8', 
+                'x-auth-token': this.context.xAuthToken, 
+            }
+        })
+        // On success, 
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert("56% match") 
+        })
     }
     // 
     componentDidMount() {
@@ -131,7 +166,7 @@ class Dashboard extends Component {
                             <input type="file" className="" id="" onChange={this.onFileChange}/>
                         </div> <br />
                         <div className="perform-analysis-button-div">
-                        <Button className="perform-analysis" onClick={this.onFileUpload}> Perform Analysis </Button>
+                        <Button className="perform-analysis" onClick={this.performAnalysis}> Perform Analysis </Button>
                         </div>
 
                     </div>

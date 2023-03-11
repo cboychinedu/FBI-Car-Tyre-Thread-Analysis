@@ -44,6 +44,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(fileupload())
 app.use(express.static('static'));
+app.use(express.static('./static/uploads')); 
 app.use(express.static('./static/javascript'));
 app.use(express.static('./static/templates'));
 app.use(express.static('./static/css'));
