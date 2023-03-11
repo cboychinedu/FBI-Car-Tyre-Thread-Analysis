@@ -1,10 +1,25 @@
 // Importing the necessary modules
 import React, { Component, Fragment } from 'react';
-import { Checkbox, Form, Button, Message } from 'semantic-ui-react';
+import { Form, Button, Message } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import Footer from './Footer'; 
 import fbiSeal from '../Images/fbi.png'; 
+import withRouter from './WithRouter';
 import '../Css/App.css'; 
+
+
+// Creating a function for sweetAlert 
+const sweetAlert = (icon, title, message, text) => {
+    // Create sweet alert 
+    Swal.fire({
+        title: `${title}`, 
+        icon: icon,
+        html: ``, 
+        text: message, 
+        confirmButtonText: "Okay"
+    }); 
+}
 
 // Creating the class component 
 class Register extends Component {
@@ -33,6 +48,9 @@ class Register extends Component {
                 message: 'Please fill in your firstname ...', 
                 display: "grid", 
             });
+
+            // Displaying the sweet alert 
+            sweetAlert('info', 'Firstname required', 'Please fill in your firstname'); 
             return; 
         } 
 
@@ -42,6 +60,9 @@ class Register extends Component {
                 message: 'Please fill in your lastname ...', 
                 display: "grid", 
             });
+
+            // Displaying the sweet alert 
+            sweetAlert('info', 'Lastname required', 'Please fill in your lastname'); 
             return; 
         }
 
@@ -51,6 +72,9 @@ class Register extends Component {
                 message: 'Please fill in your email ...', 
                 display: "grid", 
             });
+
+            // Displaying the sweet alert 
+            sweetAlert('info', 'Email address required', 'Please fill in your email');
             return; 
         }
 
@@ -60,6 +84,9 @@ class Register extends Component {
                 message: 'Please fill in your password ...', 
                 display: "grid", 
             });
+
+            // Displaying the sweet alert 
+            sweetAlert('info', 'Password required', 'Please fill in your password'); 
             return; 
         }
 
@@ -91,10 +118,71 @@ class Register extends Component {
             .then(response => response.json())
             .then(data => {
                 // Checking if the user was registered 
-                console.log(data); 
-                
+                if (data.status === "user_registered") {
+                    // Execute the block of code below 
+                    Swal.fire({
+                        title: "User Already Registered...", 
+                        text: data.message, 
+                        icon: "info", 
+                        confirmButtonText: "Click Here To Login...", 
+                    }) 
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            // Setting the timeout for 3seconds, and then 
+                            // navigate the user to the login route. 
+                            setTimeout(() => {
+                                // Navigating the user 
+                                this.props.router.navigate('/login')
+
+                            }, 3000)
+                           
+                        }
+                    });
+                }
+
+                // Else if the data status returned an error value 
+                else if (data.status === "error") {
+                    // Execute the block of code below 
+                    Swal.fire({
+                        title: "Error connecting to the database...", 
+                        text: data.message, 
+                        icon: 'error', 
+                        confirmButtonText: "Exit..", 
+                    })
+                    .then((result) => {
+                        // If the click exit 
+                        if (result.isConfirmed) {
+                            // Reload the screen 
+                            window.location.reload(); 
+                        }
+                    })
+            
+                }
+                // Else return the user to the login page 
+                else {
+                    // Execute the block of code below 
+                    Swal.fire({
+                        title: "User Registered", 
+                        text: data.message, 
+                        icon: "success", 
+                        confirmButtonText: "Click Here To Login...", 
+                    }) 
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            // Setting the timeout for 3seconds, and then 
+                            // navigate the user to the login route. 
+                            setTimeout(() => {
+                                // Navigating the user 
+                                this.props.router.navigate('/login')
+
+                            }, 3000)
+                            
+                        }
+                    });
+
+                }
+               
             })
-            // this.props.register(firstname, lastname, emailAddress, password);
         }
     }
 
@@ -211,4 +299,5 @@ class Register extends Component {
 }
 
 // Exporting the register component 
-export default Register; 
+// this.props.register(firstname, lastname, emailAddress, password);
+export default withRouter(Register); 

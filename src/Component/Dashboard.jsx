@@ -1,5 +1,5 @@
 // Importing the necessary modules
-import React, { ChangeEvent, Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import axios from 'axios';
