@@ -4,7 +4,7 @@ const session = require('express-session');
 const mongodb_session = require('connect-mongodb-session')(session);
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const { rootPath } = require('../base.js')
+const { routeLogger, rootPath } = require('../base.js')
 const { USERS } = require('../models/validation.js');
 const joi = require('joi');
 const bcrypt = require('bcrypt');
@@ -14,6 +14,16 @@ const router = express.Router();
 
 // Creating a session variable
 let sess;
+
+// Setting a route for logging
+router.post("/logging", async (req, res) => {
+    // Getting the request
+    loggingData = req.body;
+    routeLogger(loggingData);
+
+    return res.send(JSON.stringify({ "status": "logged route" })); 
+
+})
 
 // Setting a route for getting image
 router.get('/:imageName', async (req, res) => {

@@ -4,32 +4,34 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import axios from 'axios';
 import uploadImage from "../Images/image.png";
-import profileImage from "../Images/profile-image.png"; 
-import { AuthContext } from "../Auth/AuthContext"; 
+import profileImage from "../Images/profile-image.png";
+import { AuthContext } from "../Auth/AuthContext";
+import { LoggingContext } from '../Logging/LogContext';
 import threadImage from '../Images/car-type-thread-image.jpg'
 import { Button, Message } from "semantic-ui-react";
 import '../Css/App.css';
 
-// Creating the function componenet
+// Creating the class componenet
 class Dashboard extends Component {
+
     // State
     state = {
-        firstname: "", 
-        lastname: "", 
-        selectedFile: null, 
-        imageName: "", 
-        imagePath: uploadImage || "", 
+        firstname: "",
+        lastname: "",
+        selectedFile: null,
+        imageName: "",
+        imagePath: uploadImage || "",
     }
 
-    // Getting the Auth context 
-    static contextType = AuthContext; 
+    // Getting the Auth context
+    static contextType = AuthContext;
 
     // On file select (from the pop up)
     onFileChange = (event) => {
         // console.log('file change')
-        // Update the state 
+        // Update the state
         this.setState({
-            selectedFile: event.target.files[0] 
+            selectedFile: event.target.files[0]
         })
 
         event.target.files = null
@@ -37,92 +39,93 @@ class Dashboard extends Component {
 
     // On file upload (click the upload button)
     onFileUpload = () => {
-        // Create an object of formData 
-        const formData = new FormData(); 
+        // Create an object of formData
+        const formData = new FormData();
 
-        // Update the formData object 
+        // Update the formData object
         formData.append(
-            "image", 
-            this.state.selectedFile, 
+            "image",
+            this.state.selectedFile,
             this.state.selectedFile.name
-        ); 
+        );
 
-        // Details of the uploaded file 
+        // Details of the uploaded file
         axios.post("http://localhost:3001/uploadImage", formData, {
             headers: {
-                // 'Content-Type': 'application/json', 
-                'x-auth-token': localStorage.getItem("x-auth-token"), 
+                // 'Content-Type': 'application/json',
+                'x-auth-token': localStorage.getItem("x-auth-token"),
             }
         })
         .then((request) => {
-            // Checking request 
+            // Checking request
             if (request.data.status === "success") {
-                // Getting the image name 
+                // Getting the image name
                 let imageName = request.data.imagePath
-                imageName = imageName.split("/uploads/")[1]; 
-                imageName = imageName.trimEnd(); 
+                imageName = imageName.split("/uploads/")[1];
+                imageName = imageName.trimEnd();
 
 
                 console.log(imageName)
 
 
-                // Setting the state 
+                // Setting the state
                 this.setState({
-                    //  
+                    //
                     imagePath: `http://localhost:3001/${imageName}`
                 })
             }
-            console.log(request); 
+            console.log(request);
         });
     }
 
-    // 
+    //
     performAnalysis = async (event) => {
-        // 
-        let imageName = this.state.imagePath; 
+        //
+        let imageName = this.state.imagePath;
         imageName = imageName.split("/uploads/")[1].trimEnd();
         let data = JSON.stringify({
-            "image_path": imageName, 
-        }) 
+            "image_path": imageName,
+        })
 
-        // 
+        //
         await fetch('http://localhost:5001', {
-            method: 'POST', 
-            body: data, 
+            method: 'POST',
+            body: data,
             headers: {
-                'Content-type': 'application/json; charset=UTF-8', 
-                'x-auth-token': this.context.xAuthToken, 
+                'Content-type': 'application/json; charset=UTF-8',
+                'x-auth-token': this.context.xAuthToken,
             }
         })
-        // On success, 
+        // On success,
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            alert("56% match") 
+            alert("56% match")
         })
     }
-    // 
+    //
     componentDidMount() {
-        // Making a fetch request to the server, with the 
-        // x-auth-token to render the logged in user, with 
-        // his/her details 
+        // Making a fetch request to the server, with the
+        // x-auth-token to render the logged in user, with
+        // his/her details
         fetch('http://localhost:3001/user-details', {
-            method: 'POST', 
-            body: null, 
+            method: 'POST',
+            body: null,
             headers: {
-                'Content-type': 'application/json; charset=UTF-8', 
-                'x-auth-token': this.context.xAuthToken, 
+                'Content-type': 'application/json; charset=UTF-8',
+                'x-auth-token': this.context.xAuthToken,
             }
         })
-        // On success, convert the response into a json object 
+        // On success, convert the response into a json object
         .then(response => response.json())
         .then(data => {
 
-            // console.log(data)
+            // Setting the user email
+            this.context.setUserEmail(data["email"])
 
-            // Setting the state 
+            // Setting the state
             this.setState({
-                firstname: data["firstname"], 
+                firstname: data["firstname"],
                 lastname: data["lastname"]
             })
         })
@@ -130,7 +133,7 @@ class Dashboard extends Component {
 
     // Rendering
     render() {
-        // 
+        //
         if (this.state.selectedFile) {
             // Return the jsx
         return (
@@ -186,14 +189,15 @@ class Dashboard extends Component {
                 </div>
 
                 {/* Adding the footer */}
-                <Footer /> 
+                <Footer />
             </Fragment>
         )
 
         }
 
-        // 
+        //
         else {
+
             // Return the jsx
             return (
                 <Fragment>
@@ -248,13 +252,13 @@ class Dashboard extends Component {
                         </div>
 
                     {/* Adding the footer */}
-                    <Footer /> 
+                    <Footer />
                 </Fragment>
             )
         }
     }
-}    
-        
+}
+
 
 // Exporting the dashboard page
 export default Dashboard;

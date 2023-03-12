@@ -1,35 +1,34 @@
-// Importing the necessary modules 
-import React, { Component, createContext, Fragment } from 'react'; 
+// Importing the necessary modules
+import React, { Component, createContext, Fragment } from 'react';
 
-// Creating the logging context object 
-const LoggingContext = createContext(); 
+// Creating the logging context object
+const LoggingContext = createContext();
 
-// Creating the class LoggingContextProvider 
+// Creating the class LoggingContextProvider
 class LoggingContextProvider extends Component {
-    // Setting the logging state 
+    // Setting the logging state
     state = {
-        route: "", 
-        xAuthToken: null, 
-        userEmail: "", 
+        route: "",
+        userEmail: "",
     }
 
-    // Logging the user 
-    LoggingUser = (route, xAuthToken, email, username) => {
-        // Saving to database 
+    // Logging the user
+    // LoggingUser = (route, xAuthToken, email, username) => {
+    //     // Saving to database
 
-        // Saving to disk 
-        return; 
+    //
+    //     // Saving to disk
+    //     return;
+    //
+    // }
 
-    }
-
-    // Rendering the LoggingContextProvider 
+    // Rendering the LoggingContextProvider
     render() {
-        // Return 
+        // Return
         return (
-            <Fragment> 
+            <Fragment>
                 <LoggingContext.Provider value={{
-                    ...this.state, 
-                    loggingUser: this.loggingUser
+                    ...this.state
                 }}>
                     {this.props.children}
                 </LoggingContext.Provider>
@@ -40,6 +39,6 @@ class LoggingContextProvider extends Component {
 
 // Exporting the LogginContextProvider
 export {
-    LoggingContext, 
+    LoggingContext,
     LoggingContextProvider
 }

@@ -2,6 +2,28 @@ body {
     margin: 0px 0px;
     padding: 0px 0px;
 }
+.error-div {
+  margin: auto;
+  margin-top: 100px;
+  width: 60%;
+  text-align: center;
+  height: 343px;
+  margin-bottom: 298px;
+  padding-top: 43px;
+}
+.error-heading {
+  font-size: 9rem;
+  font-weight: bolder;
+}
+.ui.button.error-search {
+  background: blue; 
+}
+.error-form {
+  margin: auto;
+  margin-top: 20px;
+  width: 50%;
+  width: 30%;
+}
 .ui.inverted.segment.navbar-container {
     padding-left: 40px;
 }
@@ -124,7 +146,7 @@ input[type="file"] {
     margin: auto;
     width: 55%;
     margin-top: 100px;
-    margin-bottom: 425px; 
+    margin-bottom: 425px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,16 +252,16 @@ p.fbi-bureau-para {
 }
 .ui.button.logout-button {
   height: 37px;
-  margin-top: 9px;
-  background-color: rgba(255,255,255,.15);
-  color: white;
+  margin-top: 10px;
+  background-color: #1b1c1d00;
+  color: #ffffffa6;
   font-weight: lighter;
   margin-left: 6px;
 }
-.ui.button.logout-button:hover, 
+.ui.button.logout-button:hover,
 .ui.button.logout-button:focus {
-  background-color: rgb(182 167 167 / 15%); 
-  color: white; 
+  background: rgba(255,255,255,.08);
+  color: #fff!important;
 }
 .ui.form.register-form {
   margin: auto;
@@ -267,9 +289,9 @@ p.fbi-bureau-para {
   font-size: 16px;
   font-weight: bold;
 }
-.ui.button.register-button:hover, 
+.ui.button.register-button:hover,
 .ui.button.register-button:focus {
-  color: white; 
+  color: white;
   background-color: #183140;
 }
 .ui.message.alert-message {
