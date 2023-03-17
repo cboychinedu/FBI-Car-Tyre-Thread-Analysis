@@ -35,7 +35,7 @@ class Dashboard extends Component {
             selectedFile: event.target.files[0]
         })
 
-        event.target.files = null
+        // event.target.files = null
     }
 
     // On file upload (click the upload button)
@@ -81,7 +81,7 @@ class Dashboard extends Component {
         //
         let imageName = this.state.imageName;
         let data = JSON.stringify({
-            "image_name": imageName,
+            "image_path": imageName,
         })
 
         //
@@ -103,12 +103,12 @@ class Dashboard extends Component {
             Swal.fire({
               title: 'Thread Results',
               html: `
-                <div style="height: 322px; width: 300px; margin: auto; ">
+                <div style="height: 241px; width: 370px; margin: auto; display: flex; text-align: initial; ">
 
                   <ul>
-                    <li> Thread Analysis: ${data['Thread Analysis']} </li>
-                    <li> Tyre Type: ${data['Tyre Type']} </li>
-                    <li> Status: ${data['status']} </li>
+                    <li style="list-style: none; font-size: 27px; padding-bottom: 19px; color: #712424;"> Thread Analysis: ${data['AnalysisResult']} </li>
+                    <li style="list-style: none; font-size: 18px; padding-bottom: 19px;"> Tyre Type: <b> ${data['ThreadType']} </b> </li>
+                    <li style="list-style: none;"> Status: ${data['status']} </li>
                 </div>
 
               `,
@@ -117,7 +117,7 @@ class Dashboard extends Component {
           }
         })
     }
-    //
+    //list-style: none;
     componentDidMount() {
         // Making a fetch request to the server, with the
         // x-auth-token to render the logged in user, with

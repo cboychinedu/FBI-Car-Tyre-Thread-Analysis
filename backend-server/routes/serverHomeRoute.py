@@ -36,7 +36,8 @@ def analyze():
 
         #
         image = cv2.imread(homePath)
-        image = cv2.resize(image, (250,  250)).ravel();
+        image = cv2.resize(image, (250,  250))
+        image = image.ravel();
         image = image.reshape(1, -1);
 
         # loading the machine learing model

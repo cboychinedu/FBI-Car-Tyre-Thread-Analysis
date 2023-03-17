@@ -27,6 +27,14 @@ class AuthContextProvider extends Component {
       })
     }
 
+    // Creating a function for changing the imagePath
+    changeImagePath = (imagePath) => {
+      // Setting the state
+      this.setState({
+        imagePath: imagePath
+      })
+    }
+
     // Creating a functon for loging out the user
     removeToken = () => {
         // Changing the state
@@ -78,7 +86,8 @@ class AuthContextProvider extends Component {
                         setToken: this.setToken,
                         removeToken: this.removeToken,
                         setUserEmail: this.setUserEmail,
-                        LogUserRoutes: this.LogUserRoute
+                        LogUserRoutes: this.LogUserRoute,
+                        changeImagePath: this.changeImagePath, 
                     }} >
 
                     { this.props.children }
