@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import uploadImage from "../Images/image.png";
 import profileImage from "../Images/profile-image.png";
 import { AuthContext } from "../Auth/AuthContext";
@@ -60,31 +61,27 @@ class Dashboard extends Component {
             // Checking request
             if (request.data.status === "success") {
                 // Getting the image name
-                let imageName = request.data.imagePath
+                let imageName = request.data.imagePath;
                 imageName = imageName.split("/uploads/")[1];
                 imageName = imageName.trimEnd();
-
-
-                console.log(imageName)
-
 
                 // Setting the state
                 this.setState({
                     //
-                    imagePath: `http://localhost:3001/${imageName}`
+                    imagePath: `http://localhost:3001/${imageName}`,
+                    imageName: imageName,
                 })
             }
-            console.log(request);
+
         });
     }
 
     //
     performAnalysis = async (event) => {
         //
-        let imageName = this.state.imagePath;
-        imageName = imageName.split("/uploads/")[1].trimEnd();
+        let imageName = this.state.imageName;
         let data = JSON.stringify({
-            "image_path": imageName,
+            "image_name": imageName,
         })
 
         //
@@ -99,8 +96,25 @@ class Dashboard extends Component {
         // On success,
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            alert("56% match")
+          // data = JSON.parse(data);
+
+          if (data.status === "success") {
+            // SweetAlert
+            Swal.fire({
+              title: 'Thread Results',
+              html: `
+                <div style="height: 322px; width: 300px; margin: auto; ">
+
+                  <ul>
+                    <li> Thread Analysis: ${data['Thread Analysis']} </li>
+                    <li> Tyre Type: ${data['Tyre Type']} </li>
+                    <li> Status: ${data['status']} </li>
+                </div>
+
+              `,
+            })
+
+          }
         })
     }
     //

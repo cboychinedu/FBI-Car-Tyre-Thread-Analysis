@@ -9,6 +9,7 @@
 
 # Tar files 
 node_modules.tar
+backend-server/routes/finalized_model.sav 
 
 
 # testing
