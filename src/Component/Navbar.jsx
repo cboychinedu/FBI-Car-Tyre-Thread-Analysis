@@ -28,10 +28,10 @@ let Navbar = (props) => {
                                 <img src={fbiSeal} className="fbi-seal-image" alt="fbi-seal" />
                             </div>
                         </Link>
-                        <Link to="#" className="item">Home</Link>
+                        <Link to="/" className="item">Home</Link>
                         <Link to="#" className="item"> News Feed </Link>
                         <Link to="/dashboard" className="item"> Dashboard </Link>
-                        <Button className="logout-button" > History </Button>
+                        <Link to="/history" className="item" > History </Link>
                         <Button className="logout-button" onClick={
                           () => {
                             // Clearing the local storage

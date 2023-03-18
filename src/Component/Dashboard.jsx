@@ -4,10 +4,10 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import ErrorImage from "../Images/errorImage.jpg";
 import uploadImage from "../Images/image.png";
 import profileImage from "../Images/profile-image.png";
 import { AuthContext } from "../Auth/AuthContext";
-import { LoggingContext } from '../Logging/LogContext';
 import threadImage from '../Images/car-type-thread-image.jpg'
 import { Button, Message } from "semantic-ui-react";
 import '../Css/App.css';
@@ -15,7 +15,7 @@ import '../Css/App.css';
 // Creating the class componenet
 class Dashboard extends Component {
 
-    // State
+    // Setting the state
     state = {
         firstname: "",
         lastname: "",
@@ -76,15 +76,15 @@ class Dashboard extends Component {
         });
     }
 
-    //
+    // Creating a function for performing the analysis
     performAnalysis = async (event) => {
-        //
+        // Setting the image name
         let imageName = this.state.imageName;
         let data = JSON.stringify({
             "image_path": imageName,
         })
 
-        //
+        // Connect to the python server on port 5001
         await fetch('http://localhost:5001', {
             method: 'POST',
             body: data,
@@ -97,13 +97,25 @@ class Dashboard extends Component {
         .then(response => response.json())
         .then(data => {
           // data = JSON.parse(data);
-
+          // If the data status is success
           if (data.status === "success") {
             // SweetAlert
             Swal.fire({
               title: 'Thread Results',
+              icon: "success",
               html: `
-                <div style="height: 241px; width: 370px; margin: auto; display: flex; text-align: initial; ">
+                <head>
+                    <style>
+                        .container {
+                            margin: auto;
+                            display: flex;
+                            margin-top: 0px;
+                            height: 149px;
+                            width: 370px;
+                        }
+                    </style>
+                </head>
+                <div class="container">
 
                   <ul>
                     <li style="list-style: none; font-size: 27px; padding-bottom: 19px; color: #712424;"> Thread Analysis: ${data['AnalysisResult']} </li>
@@ -116,8 +128,43 @@ class Dashboard extends Component {
 
           }
         })
+        .catch((error) => {
+            // Displaying the error alert
+            Swal.fire({
+                title: "Error connecting to database",
+                icon: "error", 
+                html: `
+                    <head>
+                        <style>
+                            .container {
+                              margin: auto;
+                              display: flex;
+                              margin-top: 0px;
+                              height: 149px;
+                              width: 396px;
+                            }
+                            .container ul {
+                              list-style-type: none;
+                            }
+                            .error {
+                              color: red;
+                            }
+                        </style>
+                    </head>
+                    <div class="container">
+                      <p>
+                          <div> <img src=${ErrorImage} class="database-error-image"/>
+                          <div>
+                          <span class="error"> TypeError: Failed to obtain data from the database network <br>
+                          Reasons: <b> CONNECTION REFUSED </b>  <br>
+                          Please contact your admin...
+                      </p>
+                    </div>
+                `
+            })
+        })
     }
-    //list-style: none;
+    // Execute the block of code if the component mounts
     componentDidMount() {
         // Making a fetch request to the server, with the
         // x-auth-token to render the logged in user, with
@@ -205,7 +252,7 @@ class Dashboard extends Component {
                 {/* Adding the footer */}
                 <Footer />
             </Fragment>
-        )
+          )
 
         }
 

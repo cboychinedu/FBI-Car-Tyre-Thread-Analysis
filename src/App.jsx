@@ -7,6 +7,7 @@ import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
 import Login from './Component/Login';
 import ErrorPage from './Component/Error404';
+import History from './Component/History';
 import Register from './Component/Register';
 import { AuthContext } from "./Auth/AuthContext";
 
@@ -54,7 +55,8 @@ class App extends Component {
             <Routes>
                 <Route exact path="/" element={<Dashboard/>} />
                 <Route path="/dashboard" element={<Dashboard/>} />
-                <Route path="/login" element={<Dashboard /> } /> 
+                <Route path="/history" element={<History /> } /> 
+                <Route path="/login" element={<Dashboard /> } />
                 <Route path="*" exact={true} element={<ErrorPage />} />
             </Routes>
             </BrowserRouter>

@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Analysis </title>
+    <style>
+        .container {
+            margin: auto;
+            display: flex;
+            border: 3px solid blue;
+            height: 241px;
+            width: 370px;
+        }
+    </style>
 </head>
-<body>
+  <div class="container">
 
-    <div className="results-container" style="display: flex; margin: auto; border: 2px solid red; height: 100px; width: 30%;">
+    <ul>
+      <li style="list-style: none; font-size: 27px; padding-bottom: 19px; color: #712424;"> Thread Analysis: ${data['AnalysisResult']} </li>
+      <li style="list-style: none; font-size: 18px; padding-bottom: 19px;"> Tyre Type: <b> ${data['ThreadType']} </b> </li>
+      <li style="list-style: none;"> Status: ${data['status']} </li>
+  </div>
 
-    </div>
-    
+</div>
 </body>
 </html>
