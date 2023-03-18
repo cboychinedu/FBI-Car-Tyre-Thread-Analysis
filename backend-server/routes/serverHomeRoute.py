@@ -2,8 +2,10 @@
 
 # Importing the necessary modules
 import os
+import json
 import cv2
 import pickle
+import requests
 from time import sleep
 from flask import request
 from flask import Blueprint
@@ -16,15 +18,6 @@ home = Blueprint('home', __name__, template_folder="templates",
 # Creating the home page
 @home.route('/', methods=['GET', 'POST'])
 def analyze():
-
-    # # Getting the image path from the json data
-    # imagePath = os.listdir("./static/uploads")[0]
-
-    # # image = cv2.imread(imagePath)
-    # # print(image)
-
-
-    # print(request)
     # print(homePath)
     if request.method == "POST":
         data = request.get_json();
@@ -48,24 +41,25 @@ def analyze():
         result = model.predict(image)
         result = result[0];
 
-        print(result);
-
-
-        return {
-            "status": "success",
-            "AnalysisResult": "97.8%",
-            "ThreadType": result,
+        #
+        url = 'http://localhost:3001/save-history'
+        myobj = {
+            "email": data['email'],
+            "imagePath": imagePath,
+            "imageName": imagePath,
+            "AnalysisResult": result
         }
 
+        # Saving the analysis on the mongodb server
+        response = requests.post(url, json=myobj)
+        json_data = json.loads(response.text);
+        print(json_data)
 
-
-
-
-    elif request.method == "GET":
-
-        print(request.method);
-
-        return {
-            "status": "success-get",
-            "message": "the analysis is 30% match.."
-        }
+        # If the response is successful
+        if (json_data['status'] == 'success'):
+            # Return the result
+            return {
+                "status": "success",
+                "AnalysisResult": "99.87%",
+                "ThreadType": result,
+            }

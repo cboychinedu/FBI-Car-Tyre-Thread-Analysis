@@ -29,4 +29,4 @@ const USERSHISTORY = mongodb.model('usersHistory', usersHistory)
 
 // Exporting the module
 module.exports.USERS = USERS;
-module.exports.USERSHISTORY = USERSHISTORY; 
+module.exports.USERSHISTORY = USERSHISTORY;

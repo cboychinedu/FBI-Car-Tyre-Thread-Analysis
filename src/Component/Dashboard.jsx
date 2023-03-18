@@ -19,6 +19,7 @@ class Dashboard extends Component {
     state = {
         firstname: "",
         lastname: "",
+        email: "",
         selectedFile: null,
         imageName: "",
         imagePath: uploadImage || "",
@@ -82,6 +83,7 @@ class Dashboard extends Component {
         let imageName = this.state.imageName;
         let data = JSON.stringify({
             "image_path": imageName,
+            "email": this.state.email, 
         })
 
         // Connect to the python server on port 5001
@@ -132,7 +134,7 @@ class Dashboard extends Component {
             // Displaying the error alert
             Swal.fire({
                 title: "Error connecting to database",
-                icon: "error", 
+                icon: "error",
                 html: `
                     <head>
                         <style>
@@ -187,7 +189,8 @@ class Dashboard extends Component {
             // Setting the state
             this.setState({
                 firstname: data["firstname"],
-                lastname: data["lastname"]
+                lastname: data["lastname"],
+                email: data["email"]
             })
         })
     }

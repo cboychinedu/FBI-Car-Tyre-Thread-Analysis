@@ -5,7 +5,7 @@ const mongodb_session = require('connect-mongodb-session')(session);
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const { routeLogger, rootPath } = require('../base.js')
-const { USERS } = require('../models/validation.js');
+const { USERS, USERSHISTORY } = require('../models/validation.js');
 const joi = require('joi');
 const bcrypt = require('bcrypt');
 
@@ -21,7 +21,63 @@ router.post("/logging", async (req, res) => {
     loggingData = req.body;
     routeLogger(loggingData);
 
-    return res.send(JSON.stringify({ "status": "logged route" })); 
+    return res.send(JSON.stringify({ "status": "logged route" }));
+
+})
+
+// Saving the user's analysis
+router.post('/save-history', async(req, res) => {
+    // Getting the histroy values
+    const data = req.body;
+
+    // Using try, and catch block to connect to the database
+    try {
+      // Using try block
+      let registeredUser = await USERS.findOne({
+          email: data["email"]
+      }).select({
+        id: 1, email: 1,
+      })
+
+      // If the registered user exists
+      if (registeredUser) {
+        // Execute the block of code below
+        let history = await new USERSHISTORY({
+            userId: registeredUser._id,
+            userEmail: registeredUser.email,
+            imageName: data.imageName,
+            imagePath: data.imagePath, 
+            analysisResult: data.AnalysisResult,
+        })
+
+        // Saving the data
+        let result = await history.save();
+
+        return res.send(JSON.stringify({
+          "status": "success",
+          "message": "History data saved on the database",
+        }))
+      }
+
+      // Else
+      else {
+        // Creating the error message
+        let errorMessage = JSON.stringify({
+            "status": "error",
+            "message": "No user found"
+        })
+
+        // Sending back the error message
+        return res.send(errorMessage);
+      }
+
+
+    }
+
+    // Catch block
+    catch (error) {
+        console.log(error);
+    }
 
 })
 
