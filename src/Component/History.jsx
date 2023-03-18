@@ -1,6 +1,6 @@
 // Importing the necessary modules
 import React, { Component, Fragment } from 'react';
-import { Grid, Menu, Segment } from 'semantic-ui-react'
+import { Grid, Menu, Segment, Button, Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -11,7 +11,7 @@ class History extends Component {
     // Setting the state
     state = {
         historyList: null,
-        activeItem: 'a',
+        activeItem: '',
         analysisResult: '',
         message: 'Welcome ',
         date: '',
@@ -33,7 +33,6 @@ class History extends Component {
           activeItem: activeItem
 
         })
-
     }
 
     // Component did mount
@@ -52,8 +51,19 @@ class History extends Component {
           // Saving the history list
            // this.state.historyList.push(data);
            this.state.historyList = [data];
+
+           //
+           this.setState({
+              activeItem: data[0].date,
+              analysisResult: data[0].analysisResult,
+              date: data[0].date,
+              imagePath: data[0].imagePath,
+              userEmail: data[0].userEmail,
+              userId: data[0].userId,
+           })
         })
     }
+
 
     // Rendering the history component
     render() {
@@ -113,20 +123,35 @@ class History extends Component {
                 <Grid.Column stretched width={12}>
                   <Segment className="message-segment">
                     <div className="history-image-div">
+                      <img src={"http://localhost:3001/" + this.state.imagePath} className="history-image-display"/>
+                      <Button className="history-download-image"> Download image </Button>
                     </div>
                     <div className="result-div">
                         <p> {this.state.message} </p>
                         <ul>
-                            <li> Car Tyre Analysis: {this.state.analysisResult} </li>
-                            <li> Date: {this.state.date} </li>
-                            <li> ImagePath: {this.state.imagePath} </li>
-                            <li> UserEmail: {this.state.userEmail} </li>
-                            <li> UserId: {this.state.userId} </li>
+                            <li className="results-lists"> Car Tyre Analysis: <b> {this.state.analysisResult} </b> </li>
+                            <li className="results-lists"> Date: <b> {this.state.date} </b> </li>
+                            <li className="results-lists"> ImagePath: <b> {this.state.imagePath} </b> </li>
+                            <li className="results-lists"> UserEmail: <b> {this.state.userEmail} </b> </li>
+                            <li className="results-lists"> UserId: <b> {this.state.userId} </b> </li>
                         </ul>
+
                     </div>
                   </Segment>
                 </Grid.Column>
               </Grid>
+                  {/* Adding the pagnation */ }
+                  <div className="history-pagnation">
+                    <Pagination
+                      boundaryRange={0}
+                      defaultActivePage={1}
+                      ellipsisItem={null}
+                      firstItem={null}
+                      lastItem={null}
+                      siblingRange={1}
+                      totalPages={5}
+                    />
+                  </div>
               </section>
 
 

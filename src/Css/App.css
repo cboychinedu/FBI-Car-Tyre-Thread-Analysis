@@ -7,9 +7,36 @@ body {
   overflow-x: hidden;
   height: 460px;
 }
+.ui.button.history-download-image {
+  margin-top: 20px;
+  background-color: blue;
+  color: white;
+  font-size: 11px;
+  width: 120px;
+}
+.history-pagnation {
+  float: right;
+  margin-top: 14px;
+}
+.history-image-display {
+  width: 92%;
+  height: 94%;
+  padding-top: 12px;
+  padding-left: 12px;
+}
 .ui.segment.message-segment {
-  height: 500px;
+  height: 440px;
   display: flex;
+}
+.results-lists {
+  border: 2px solid #cfcfcf;
+  list-style-type: disclosure-closed;
+  padding-left: 13px;
+  border-radius: 5px;
+  margin: 7px;
+  font-size: 13px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 .result-div {
   background-color: #e8e8e84d;
