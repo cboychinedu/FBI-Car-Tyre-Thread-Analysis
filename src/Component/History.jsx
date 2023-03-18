@@ -93,6 +93,12 @@ class History extends Component {
               {/* Adding the navbar */ }
               <Navbar />
 
+
+                  <div className="ui action input search-history">
+                      <input type="text" placeholder="Search..."/>
+                      <button className="ui button">Search</button>
+                  </div>
+
               {/* Adding the history container */}
               <section className="history-container">
               <Grid>
@@ -101,7 +107,6 @@ class History extends Component {
                     {
                       //
                       this.state.historyList[0].map((element, index) => {
-                        console.log(element);
                         return (
                           <Fragment>
                             <Menu.Item
@@ -153,9 +158,6 @@ class History extends Component {
                     />
                   </div>
               </section>
-
-
-
               {/* Adding the footer */ }
               <Footer />
           </Fragment>
