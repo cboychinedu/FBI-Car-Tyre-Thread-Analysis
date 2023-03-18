@@ -9,13 +9,26 @@ body {
 }
 .ui.segment.message-segment {
   height: 500px;
+  display: flex;
+}
+.result-div {
+  background-color: #e8e8e84d;
+  width: 397px;
+  height: 340px;
+  padding: 17px;
+}
+.history-image-div {
+  height: 200px;
+  width: 200px;
+  margin-right: 10px;
+  background-color: #e0e0e063;
 }
 .history-container {
-  margin: auto;
-  margin-top: 50px;
-  width: 68%;
-  margin-left: 123px;
-  margin-top: 50px;
+    margin: auto;
+    margin-bottom: 316px;
+    width: 68%;
+    margin-left: 123px;
+    margin-top: 129px;
 
 }
 .database-error-image {

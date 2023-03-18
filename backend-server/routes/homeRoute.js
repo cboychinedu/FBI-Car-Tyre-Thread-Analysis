@@ -25,6 +25,57 @@ router.post("/logging", async (req, res) => {
 
 })
 
+// Setting a route for getting the user's history
+// route
+router.post('/get-history', async (req, res) => {
+    // Getting the user's token
+    let token = req.header('x-auth-token');
+
+    // Using try, catch block
+    try {
+      // Decoding the token
+      let userData = jwt.decode(token);
+      console.log(userData.email);
+
+      // Searching the history database
+      const userHistory = await USERSHISTORY.find({
+        userEmail: userData.email
+      })
+
+      // Sending back the user's data
+      if (!userHistory) {
+          //
+          let errorMessage = JSON.stringify({
+            "status": "error",
+            "message": "Error getting the users data"
+          });
+
+          //
+          return res.send(errorMessage);
+
+      }
+
+      //
+      else {
+        //
+        return res.send(userHistory);
+      }
+    }
+    //
+    catch(error) {
+       //
+       let errorMessage = JSON.stringify({
+          "status": "error",
+          "message": "Error connecting to the database",
+       })
+
+       //
+       return res.send(errorMessage);
+    }
+
+
+})
+
 // Saving the user's analysis
 router.post('/save-history', async(req, res) => {
     // Getting the histroy values
@@ -46,7 +97,7 @@ router.post('/save-history', async(req, res) => {
             userId: registeredUser._id,
             userEmail: registeredUser.email,
             imageName: data.imageName,
-            imagePath: data.imagePath, 
+            imagePath: data.imagePath,
             analysisResult: data.AnalysisResult,
         })
 

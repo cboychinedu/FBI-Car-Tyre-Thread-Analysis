@@ -10,79 +10,132 @@ import '../Css/App.css';
 class History extends Component {
     // Setting the state
     state = {
+        historyList: null,
         activeItem: 'a',
-        message: "First Car tyre thread, 97%...",
-        keyValue: "a"
+        analysisResult: '',
+        message: 'Welcome ',
+        date: '',
+        imagePath: '',
+        userEmail: '',
+        userId: '',
     }
 
-    //
-    handleItemClick = (e, { name, message, keyValue } ) => {
-        this.setState({ keyValue: keyValue , message: message })
+    // Creating a function for handling the click events
+    handleItemClick = (e, { name, objectData, activeItem } ) => {
 
+        //
+        this.setState({
+          analysisResult: objectData.analysisResult,
+          date: objectData.date,
+          imagePath: objectData.imagePath,
+          userEmail: objectData.userEmail,
+          userId: objectData.userId,
+          activeItem: activeItem
 
+        })
+
+    }
+
+    // Component did mount
+    componentDidMount (event) {
+        // Using fetch request
+        fetch('http://localhost:3001/get-history', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': localStorage.getItem("x-auth-token")
+          },
+        })
+        // Convert the response data into a json object
+        .then(response => response.json())
+        .then(data => {
+          // Saving the history list
+           // this.state.historyList.push(data);
+           this.state.historyList = [data];
+        })
     }
 
     // Rendering the history component
     render() {
-      // Return the jsx component
-      return (
+      // Checking for the user's history list
+      if (!this.state.historyList) {
+          // Return the jsx
+          return (
+            <Fragment>
+                {/* Adding the navbar */}
+                <Navbar />
+                    <p> Test </p>
+
+                {/* Adding the footer */}
+                <Footer />
+            </Fragment>
+          )
+
+
+      }
+
+      // Else
+      else {
+        // Return the jsx
+        const { historyList } = this.state;
+        return (
           <Fragment>
-              {/* Adding the Navbar */}
+              {/* Adding the navbar */ }
               <Navbar />
 
-
+              {/* Adding the history container */}
               <section className="history-container">
-                  <Grid>
-                    <Grid.Column width={4}>
-                      <Menu fluid vertical tabular menu-container>
-                        <Menu.Item
-                          name='Car tyre thread A'
-                          keyValue="a"
-                          message="Bio First Car tyre thread, 97%..."
-                          active={this.state.keyValue === 'a'}
-                          onClick={this.handleItemClick}
-                        />
-                        <Menu.Item
-                          name='Car tyre thread B'
-                          keyValue="b"
-                          message="Pics First Car tyre thread, 98%..."
-                          active={this.state.keyValue === 'b'}
-                          onClick={this.handleItemClick}
-                        />
-                        <Menu.Item
-                          name='Car tyre thread C'
-                          keyValue="c"
-                          message="Companies First Car tyre thread, 9%..."
-                          active={this.state.keyValue === 'c'}
-                          onClick={this.handleItemClick}
-                        />
-                        <Menu.Item
-                          name='Car tyre thread D'
-                          keyValue = "d"
-                          message="Links First Car tyre thread, 59%..."
-                          active={this.state.keyValue === 'd'}
-                          onClick={this.handleItemClick}
-                        />
-                      </Menu>
-                    </Grid.Column>
+              <Grid>
+                <Grid.Column width={4}>
+                  <Menu fluid vertical tabular menu-container>
+                    {
+                      //
+                      this.state.historyList[0].map((element, index) => {
+                        console.log(element);
+                        return (
+                          <Fragment>
+                            <Menu.Item
+                              name={element.imagePath}
+                              keyValue={element.analysisResult}
+                              activeItem={element.date}
+                              objectData={element}
+                              active={this.state.activeItem === element.date}
+                              onClick={this.handleItemClick}
+                            />
+                          </Fragment>
 
-                    <Grid.Column stretched width={12}>
-                      <Segment className="message-segment">
-                        {this.state.message}
-                      </Segment>
-                    </Grid.Column>
-                </Grid>
-                </section>
+                        )
+                      })
 
-
-
-
+                    }
+                  </Menu>
+                </Grid.Column>
+                <Grid.Column stretched width={12}>
+                  <Segment className="message-segment">
+                    <div className="history-image-div">
+                    </div>
+                    <div className="result-div">
+                        <p> {this.state.message} </p>
+                        <ul>
+                            <li> Car Tyre Analysis: {this.state.analysisResult} </li>
+                            <li> Date: {this.state.date} </li>
+                            <li> ImagePath: {this.state.imagePath} </li>
+                            <li> UserEmail: {this.state.userEmail} </li>
+                            <li> UserId: {this.state.userId} </li>
+                        </ul>
+                    </div>
+                  </Segment>
+                </Grid.Column>
+              </Grid>
+              </section>
 
 
-              {/* Adding the footer */}
+
+              {/* Adding the footer */ }
               <Footer />
           </Fragment>
-      )
+        )
+      }
     }
 }
 
