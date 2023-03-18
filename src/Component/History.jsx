@@ -1,6 +1,6 @@
 // Importing the necessary modules
 import React, { Component, Fragment } from 'react';
-import { Grid, Menu, Segment, Button, Pagination } from 'semantic-ui-react'
+import { Grid, Menu, Segment, Button, Search, Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -33,6 +33,12 @@ class History extends Component {
           activeItem: activeItem
 
         })
+    }
+
+    // Creating a function for handling the search form
+    handleSearch = (event) => {
+        //
+        console.log(event);
     }
 
     // Component did mount
@@ -92,13 +98,9 @@ class History extends Component {
           <Fragment>
               {/* Adding the navbar */ }
               <Navbar />
-
-
-                  <div className="ui action input search-history">
-                      <input type="text" placeholder="Search..."/>
-                      <button className="ui button">Search</button>
+                  <div className="search-history">
+                      <input type="search" className="history-search-form" onChange={this.handleSearch} placeholder="Search..."/>
                   </div>
-
               {/* Adding the history container */}
               <section className="history-container">
               <Grid>

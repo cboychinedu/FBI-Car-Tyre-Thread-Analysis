@@ -7,6 +7,18 @@ body {
   overflow-x: hidden;
   height: 460px;
 }
+.search-history {
+  margin: 42px;
+}
+.history-search-form {
+    height: 37px;
+    padding-left: 16px;
+    outline: none;
+    color: #575555;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid #d5d2d2;
+}
 .ui.button.history-download-image {
   margin-top: 20px;
   background-color: blue;
@@ -58,7 +70,7 @@ body {
     margin-bottom: 316px;
     width: 68%;
     margin-left: 123px;
-    margin-top: 47px; 
+    margin-top: 47px;
 
 }
 .database-error-image {
