@@ -50,6 +50,7 @@ def analyze():
 
         print(result);
 
+
         return {
             "status": "success",
             "AnalysisResult": "97.8%",
