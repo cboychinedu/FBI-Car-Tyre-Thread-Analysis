@@ -12,8 +12,6 @@ const bcrypt = require('bcrypt');
 // Creating the router object
 const router = express.Router();
 
-// Creating a session variable
-let sess;
 
 // Setting a route for logging
 router.post("/logging", async (req, res) => {
@@ -21,7 +19,7 @@ router.post("/logging", async (req, res) => {
     loggingData = req.body;
     routeLogger(loggingData);
 
-    return res.send(JSON.stringify({ "status": "logged route" }));
+    return res.status(200).send(JSON.stringify({ "status": "logged route" }));
 
 })
 
@@ -44,33 +42,34 @@ router.post('/get-history', async (req, res) => {
 
       // Sending back the user's data
       if (!userHistory) {
-          //
+          // Generating the error message 
           let errorMessage = JSON.stringify({
             "status": "error",
             "message": "Error getting the users data"
           });
 
-          //
-          return res.send(errorMessage);
+          // Sending back the error message 
+          return res.status(500).send(errorMessage);
 
       }
 
-      //
+      // If the user's history exists, execute the 
+      // block of code below 
       else {
-        //
-        return res.send(userHistory);
+        // Return the user's history data 
+        return res.status(200).send(userHistory);
       }
     }
-    //
+    // On error connecting to the mongodb database 
     catch(error) {
-       //
+       // Log the error, and generate an error message 
        let errorMessage = JSON.stringify({
           "status": "error",
           "message": "Error connecting to the database",
        })
 
-       //
-       return res.send(errorMessage);
+       // Send back the error message 
+       return res.status(500).send(errorMessage);
     }
 
 
@@ -104,7 +103,7 @@ router.post('/save-history', async(req, res) => {
         // Saving the data
         let result = await history.save();
 
-        return res.send(JSON.stringify({
+        return res.status(201).send(JSON.stringify({
           "status": "success",
           "message": "History data saved on the database",
         }))
@@ -119,7 +118,7 @@ router.post('/save-history', async(req, res) => {
         })
 
         // Sending back the error message
-        return res.send(errorMessage);
+        return res.status(404).send(errorMessage);
       }
 
 
@@ -127,7 +126,18 @@ router.post('/save-history', async(req, res) => {
 
     // Catch block
     catch (error) {
+        // Logging the error 
         console.log(error);
+
+        // Creating the error message 
+        let errorMessage = JSON.stringify({
+            "status": "error", 
+            "statusCode": 500, 
+            "message": "Error connecting to the database", 
+        })
+
+        // Sending back the error message 
+        return res.status(500).send(errorMessage); 
     }
 
 })
@@ -140,7 +150,8 @@ router.get('/:imageName', async (req, res) => {
   // let full path
   let fullImagePath = path.join(rootPath, 'static', 'uploads', imageName)
 
-  res.sendFile(fullImagePath);
+  // Sending back the image path 
+  return res.status(200).sendFile(fullImagePath);
 
 })
 
@@ -198,7 +209,7 @@ router.post("/uploadImage", async(req, res) => {
                     let errorMsg = JSON.stringify({ status: 'error', message: 'Failed to upload image file'})
 
                     //
-                    return res.end(errorMsg);
+                    return res.status(400).end(errorMsg);
                 }
 
                 // Else if the upload was successful
@@ -222,7 +233,7 @@ router.post("/uploadImage", async(req, res) => {
                     })
 
                     // Return the message
-                    return res.end(successMessage);
+                    return res.status(200).end(successMessage);
                 }
             })
         }
@@ -236,11 +247,12 @@ router.post("/uploadImage", async(req, res) => {
             });
 
             // Return the message
-            return res.send(errorMessage);
+            return res.status(404).send(errorMessage);
         }
     }
     // Catch block
     catch (error) {
+        // Log the error 
         console.log(error);
 
         // Create the error message
@@ -250,7 +262,7 @@ router.post("/uploadImage", async(req, res) => {
         })
 
         // Sending back the error message
-        return res.send(errorMessage);
+        return res.status(500).send(errorMessage);
     }
 
 })
