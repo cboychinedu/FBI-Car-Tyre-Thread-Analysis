@@ -19,6 +19,10 @@
 
 <p align="center"><img src="./src/Images/fbi-login.png" /></p>
 
+<p align="center"><img src="./src/Images/fbi-register.png" /></p>
+
+<p align="center"><img src="./src/Images/fbi-dashboard.png" /></p>
+
 <p>
 Forensic tire tread evidence records and analyzes impressions of vehicle tire treads for use in legal proceedings to help prove the identities of persons at a crime scene. Every tire will show different amounts of tread wear, and different amounts of damage in the form of tiny cuts and nicks.
 </p>
