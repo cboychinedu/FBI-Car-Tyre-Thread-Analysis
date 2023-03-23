@@ -11,12 +11,11 @@
     "react-dom": "^18.2.0",
     "react-jwt": "^1.1.8",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
-    "sweetalert2": "^11.7.3",
+    "sweetalert2": "^11.4.8",
     "web-vitals": "^2.1.4",
-    "winston": "^3.8.2",
     "winston-react": "^1.0.0-RC.0"
   },
   "scripts": {

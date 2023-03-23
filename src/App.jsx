@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
-import Login from './Component/Login';
 import ErrorPage from './Component/Error404';
 import History from './Component/History';
 import Register from './Component/Register';
@@ -19,23 +18,23 @@ class App extends Component {
   // Getting the Auth context
   static contextType = AuthContext;
 
-  // Logging
-  LoggingUsers = (component, route) => {
-    // Getting the date
-    let date = Date().split("GMT")[0].trimEnd();
-
-    // Setting up some data
-    let data = JSON.stringify({
-      route: route,
-      date: date,
-    })
-
-    // Setting the LogUserRoute
-    this.context.LogUserRoutes(data)
-
-    // Returning the component
-    return component
-  }
+  // // Logging
+  // LoggingUsers = (component, route) => {
+  //   // Getting the date
+  //   let date = Date().split("GMT")[0].trimEnd();
+  //
+  //   // Setting up some data
+  //   let data = JSON.stringify({
+  //     route: route,
+  //     date: date,
+  //   })
+  //
+  //   // Setting the LogUserRoute
+  //   this.context.LogUserRoutes(data)
+  //
+  //   // Returning the component
+  //   return component
+  // }
 
   // Rendering the App component
   render() {
@@ -55,7 +54,7 @@ class App extends Component {
             <Routes>
                 <Route exact path="/" element={<Dashboard/>} />
                 <Route path="/dashboard" element={<Dashboard/>} />
-                <Route path="/history" element={<History /> } /> 
+                <Route path="/history" element={<History /> } />
                 <Route path="/login" element={<Dashboard /> } />
                 <Route path="*" exact={true} element={<ErrorPage />} />
             </Routes>
