@@ -81,7 +81,9 @@ These codes indicate that the request has been received and is being processed. 
 These codes indicate that the request was successful. Some common examples include: <br>
 
 ** 200 OK: The request was successful, and the server is returning the requested data.
+
 ** 201 Created: The request was successful, and a new resource was created on the server.
+
 ** 204 No Content: The request was successful, but there is no data to return.
 
 
@@ -89,7 +91,9 @@ These codes indicate that the request was successful. Some common examples inclu
 These codes indicate that the client needs to take additional action to complete the request. Some common examples include: <br>
 
 ** 301 Moved Permanently: The requested resource has been permanently moved to a new location.
+
 ** 302 Found: The requested resource has been temporarily moved to a different location.
+
 ** 304 Not Modified: The client's cached copy of the resource is still valid, so the server is not returning a new copy.
 
 
@@ -97,7 +101,9 @@ These codes indicate that the client needs to take additional action to complete
 These codes indicate that there was an error on the client's side of the request. Some common examples include: <br>
 
 ** 400 Bad Request: The request was malformed or invalid.
+
 ** 401 Unauthorized: The client needs to provide authentication credentials to access the requested resource.
+
 ** 404 Not Found: The requested resource could not be found on the server.
 
 
@@ -105,10 +111,12 @@ These codes indicate that there was an error on the client's side of the request
 These codes indicate that there was an error on the server side of the request. Some common examples include:
 
 ** 500 Internal Server Error: An unexpected error occurred on the server.
+
 ** 503 Service Unavailable: The server is temporarily unable to handle the request.
+
 ** There are many other HTTP status codes beyond these examples, but these are some of the most commonly used.
 
-</ul> 
+</ul>
 
 </p>
 
