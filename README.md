@@ -17,7 +17,24 @@
 <img src="./src/Images/fbi.png">
 </a>
 
-<p align="center"><img src="./src/Images/fbi-login.png" /></p>
+<p align="center"><img src="./src/Images/fbi-login.png" />
+
+<h3> Login Page </h3> 
+This repository contains a login page that can be used for authentication in web applications. The login page is built using HTML, CSS, and JavaScript. <br> 
+
+<h4> Features </h4> 
+The login page has the following features: <br> 
+<ul> 
+<li> User authentication: User can enter their username and password to login into the web application. <li>  
+<li> Password reset: Users can reset their password by clicking on the "Forgot Password" link and entering their email address. </li> 
+<li> Remember me: Users can choose to have their login credentials remembered on the device they are using. </li>
+<li> Input validation: The login page validates user input to ensure that the correct information is entered. </li>
+</ul>
+
+<h4> Security </h4> 
+The login page uses secure password storage techniques to ensure that user passwords are protected. Passwords are hashed using a one-way hash function and salted to prevent brute-force attacks. 
+</p>
+
 
 <p align="center"><img src="./src/Images/fbi-register.png" /></p>
 
@@ -78,7 +95,7 @@ SVM works by finding the optimal hyperplane that maximizes the margin between th
 
   # Print the accuracy of the SVM classifier
   print('Accuracy:', accuracy)
-  
+
 ```
 
 In SVM, the data points that lie closest to the hyperplane are known as support vectors. These vectors are used to define the hyperplane and are important in determining the decision boundary. <br> 
