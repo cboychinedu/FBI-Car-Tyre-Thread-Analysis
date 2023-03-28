@@ -145,61 +145,6 @@ Inside the project working directory, change directory using the command prompt 
 </p>
 
 
-### Important HTTP STATUS CODE
-<p>
-Here's a list of some of the most common HTTP status codes, along with their meanings and functions:
-<ul>
-<li> <b> 1xx Informational codes: </b> </li>
-These codes indicate that the request has been received and is being processed. Some common examples include: <br>
-
-100 Continue: The server has received the request headers and is waiting for the client to send the request body.
-101 Switching Protocols: The server is switching to a different protocol (e.g. from HTTP to WebSocket).
-
-
-<li> <b> 2xx Success codes: </b> </li>
-These codes indicate that the request was successful. Some common examples include: <br>
-
-** 200 OK: The request was successful, and the server is returning the requested data.
-
-** 201 Created: The request was successful, and a new resource was created on the server.
-
-** 204 No Content: The request was successful, but there is no data to return.
-
-
-<li> <b> 3xx Redirection codes: </b> </li>
-These codes indicate that the client needs to take additional action to complete the request. Some common examples include: <br>
-
-** 301 Moved Permanently: The requested resource has been permanently moved to a new location.
-
-** 302 Found: The requested resource has been temporarily moved to a different location.
-
-** 304 Not Modified: The client's cached copy of the resource is still valid, so the server is not returning a new copy.
-
-
-<li> <b> 4xx Client error codes: </b> </li>
-These codes indicate that there was an error on the client's side of the request. Some common examples include: <br>
-
-** 400 Bad Request: The request was malformed or invalid.
-
-** 401 Unauthorized: The client needs to provide authentication credentials to access the requested resource.
-
-** 404 Not Found: The requested resource could not be found on the server.
-
-
-<li> <b> 5xx Server error codes: </b> </li>
-These codes indicate that there was an error on the server side of the request. Some common examples include:
-
-** 500 Internal Server Error: An unexpected error occurred on the server.
-
-** 503 Service Unavailable: The server is temporarily unable to handle the request.
-
-** There are many other HTTP status codes beyond these examples, but these are some of the most commonly used.
-
-</ul>
-
-</p>
-
-
 ### Bugs
 ### Ubuntu 22.04 Bugs
 
