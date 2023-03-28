@@ -52,6 +52,35 @@ Support Vector Machines (SVM) is a supervised machine learning algorithm that ca
 
 SVM works by finding the optimal hyperplane that maximizes the margin between the two classes in the data. The hyperplane is defined as the decision boundary that separates the two classes. The margin is the distance between the hyperplane and the nearest data point from each class. <br> 
 
+```python
+  from sklearn import datasets
+  from sklearn.model_selection import train_test_split
+  from sklearn.svm import SVC
+  from sklearn.metrics import accuracy_score
+
+  # Load the iris dataset
+  iris = datasets.load_iris()
+
+  # Split the dataset into training and testing sets
+  X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
+
+  # Create an SVM classifier object
+  svm_classifier = SVC(kernel='linear', C=1)
+
+  # Fit the SVM classifier to the training data
+  svm_classifier.fit(X_train, y_train)
+
+  # Predict the classes of the test data using the trained SVM classifier
+  y_pred = svm_classifier.predict(X_test)
+
+  # Calculate the accuracy of the SVM classifier on the test data
+  accuracy = accuracy_score(y_test, y_pred)
+
+  # Print the accuracy of the SVM classifier
+  print('Accuracy:', accuracy)
+  
+```
+
 In SVM, the data points that lie closest to the hyperplane are known as support vectors. These vectors are used to define the hyperplane and are important in determining the decision boundary. <br> 
 
 SVM has several advantages over other classification algorithms. It can handle high-dimensional data, is effective in cases where the number of features is greater than the number of samples, and has a roubust performance on small datasets. <br> 
@@ -76,6 +105,7 @@ The following Python packages are required to run the code in this repository:
 
 <ul>
 <li> tensorflow </li>
+<li> sklearn </li>
 <li> keras </li>
 <li> numpy </li>
 <li> pandas </li>
