@@ -32,17 +32,60 @@ Forensic tire tread evidence records and analyzes impressions of vehicle tire tr
 #### What are TYRE marks in forensic science?
 
 <p>
-The tyre marks are also like footprints, either two-dimensional prints or three-dimensional impressions depending upon the surface on which they are present. Skid marks are the marks left by wheels of motor vehicles, which are no longer rotating.
+The tyre marks are also like footprints, either two-dimensional prints or three-dimensional impressions depending upon the surface on which they are present. Skid marks are the marks left by wheels of motor vehicles, which are no longer rotating. <br> 
+
+This repository contains the code for analyzing the tread pattern of car tyres using image embeddings. The aim of this analysis is to identify the unique features of different types of tyres and determine which ones are better suited for different driving conditions.
+</p>
+
+
+### Data 
+
+<p> 
+The dataset used in this analysis consists of images of car tyre treads. The images are collected from different sources and include various brands and types of tyres. Each image is labeled with the corresponding tyre type and brand.
+</p> 
+
+
+### Support Vector Machines (SVM) 
+
+<p> 
+Support Vector Machines (SVM) is a supervised machine learning algorithm that can be used for classification and regression analysis. SVM is particularly useful for classification problems in which the data points are not linearly separable. <br> 
+
+SVM works by finding the optimal hyperplane that maximizes the margin between the two classes in the data. The hyperplane is defined as the decision boundary that separates the two classes. The margin is the distance between the hyperplane and the nearest data point from each class. <br> 
+
+In SVM, the data points that lie closest to the hyperplane are known as support vectors. These vectors are used to define the hyperplane and are important in determining the decision boundary. <br> 
+
+SVM has several advantages over other classification algorithms. It can handle high-dimensional data, is effective in cases where the number of features is greater than the number of samples, and has a roubust performance on small datasets. <br> 
+
+However, SVM can be sensitive to the choice of kernel function and the regularization parameter. It can also be computationally intensive, especially for large datasets. <br> 
+
+Overall, SVM is a powerfull machine learning algorithm that can be used for a wide range of classification problems. It is a valuable tool for data scientists and machine learning practitioners to have in ther toolbox. 
+
 </p>
 
 
 ### Problem Statement
-<p>
 
+<p>
+The analysis is carried out in two stages. In the first stage, we use a pre-trained convolutional neural network to generate image embeddings for each tyre tread image. The embeddings are vectors that capture the unique features of the tyre tread. In the second stage, we use the embeddings to train a classification model that can predict the tyre type based on the tread pattern.
+</p>
+
+### Requirements 
+
+<p> 
+The following Python packages are required to run the code in this repository:
+
+<ul>
+<li> tensorflow </li>
+<li> keras </li>
+<li> numpy </li>
+<li> pandas </li>
+<li> matplotlib </li> 
+</ul>
 </p>
 
 
 ### Working Principle
+
 <p>
 
 </p>
@@ -140,4 +183,17 @@ solved my problem.
 
 I am using Ubuntu 22.04 on Xorg with Nvidia card.
 
+</p>
+
+
+### Results
+
+<p> 
+The results of the analysis are presented in the form of a confusion matrix and classification report. The classification report includes precision, recall, and F1-score for each class.
+</p> 
+
+### Conclusion
+
+<p> 
+The analysis shows that the tread pattern of car tyres contains unique features that can be captured using image embeddings. These embeddings can be used to train a classification model that can accurately predict the tyre type based on the tread pattern. This analysis can be used to inform tyre purchasing decisions and improve the safety and performance of vehicles on the road.
 </p>
