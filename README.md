@@ -36,9 +36,21 @@ The login page uses secure password storage techniques to ensure that user passw
 </p>
 
 
-<p align="center"><img src="./src/Images/fbi-register.png" /></p>
+<p align="center"><img src="./src/Images/fbi-register.png" />
+<h4> Register Page </h4> 
+The register page allows users to create an account for the car tyre thread analysis web application. Users can enter their name, email address, and password to register for the service. The page also includes input validation to ensure that the correct information is entered.</p>
 
-<p align="center"><img src="./src/Images/fbi-dashboard.png" /></p>
+
+<p align="center"><img src="./src/Images/fbi-dashboard.png" />
+
+<h4> Dashboard Page </h4> 
+
+The dashboard page provides users with an overview of their car tyre thread analysis data. The page includes charts and graphs that visualize data such as tyre thread depth, tyre pressure, and tyre wear patterns. Users can interact with the charts to view detailed information about specific data points.
+
+<br> 
+
+The dashboard page also includes a navigation menu that allows users to view different aspects of their car tyre thread analysis data, such as historical trends and comparison charts.
+</p>
 
 <p>
 Forensic tire tread evidence records and analyzes impressions of vehicle tire treads for use in legal proceedings to help prove the identities of persons at a crime scene. Every tire will show different amounts of tread wear, and different amounts of damage in the form of tiny cuts and nicks.
