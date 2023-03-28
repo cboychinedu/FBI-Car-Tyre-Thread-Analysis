@@ -84,28 +84,64 @@ The following Python packages are required to run the code in this repository:
 </p>
 
 
-### Working Principle
-
-<p>
-
-</p>
-
 
 ### Installation
 <p>
-
+  Extract the node_modules.tar archive, by typing the following command below 
 </p>
 
-
-### Running the application
+```bash 
+  $ tar -xf node_modules.tar 
+```
 <p>
+Clone the repo from the link, then change directory into the 
+FBI-Car-Tyre-Thread Analysis folder. <br> 
 
+Then execute the following code below 
 </p>
 
+```bash 
+  $ npm install .  
+  $ sudo npm install nodemon -g 
+  $ sudo npm install pm2 -g 
+```
 
-### Machine learning classifier used.
+
+### Running the main REACT application
 <p>
-  SVM
+Inside the working directory, open an command prompt, and type the following commands below 
+</p>
+
+```bash 
+  $ npm start 
+```
+
+<p> 
+ This would start the server on <a> localhost:3000 </a>
+</p>
+
+<br> 
+
+### Running the AUTH server 
+<p>
+Inside the project working directory, change directory using the command prompt into the <b> "backend-server"</b> directory, and type the following commands.  
+</p>
+
+```bash 
+  $ cd 'backend-server'
+  $ npm start  
+```
+
+<p> Or </p> 
+
+```bash 
+  $ cd 'backend-server' 
+  $ nodemon app.js 
+```
+
+### Running the Machine Learning Server 
+<p>
+
 </p>
 
 
