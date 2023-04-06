@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Component/Home';
 import Dashboard from './Component/Dashboard';
-import Login from './Component/Login';
 import ErrorPage from './Component/Error404';
 import History from './Component/History';
 import Register from './Component/Register';

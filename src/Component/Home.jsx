@@ -8,6 +8,7 @@ import "../Css/App.css";
 
 // Creating the functional component
 let Home = (props) => {
+    // console.log(process.env.REACT_APP_SECRET_NAME)
     // Rendering
     return (
         <Fragment>
