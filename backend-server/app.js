@@ -39,7 +39,20 @@ const app = express();
 //   unset: 'destroy',
 //   cookie: { maxAge: oneWeekSession },
 // }));
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    methods: ['GET', 'POST'], 
+    credentials: true, 
+    optionsSuccessStatus: 200, 
+    allowedHeaders: [
+        'Content-Type', 'Authorizaton', 
+        'Access-Control-Allow-Methods', 
+        'access-control-allow-orign', 
+        'Access-Control-Allow-Origin', 
+        ' Access-Control-Allow-Headers'
+    ]
+}))
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(fileupload())

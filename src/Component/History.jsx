@@ -37,8 +37,39 @@ class History extends Component {
 
     // Creating a function for handling the search form
     handleSearch = (event) => {
-        //
-        console.log(event);
+      // Getting the search query 
+      let searchQuery = event.target.value; 
+      let newHistList = []
+
+      // Converting the searchQuery to lower case 
+      searchQuery = searchQuery.toLowerCase(); 
+
+      /** Setting up a fetch request for fetching the history data
+       * from the database. 
+       * 
+       */
+
+        // filter or map the elements with the search query *** 
+        // console.log(this.state.historyList[0]); 
+        this.state.historyList[0].map((element, index) => {
+            // Getting the analysis result 
+            let analysisResult = element['analysisResult'].toLowerCase(); 
+       
+            // 
+            if (analysisResult.indexOf(searchQuery) === -1 ) {
+                console.log("Not found")
+            }
+
+            else if (analysisResult.indexOf(searchQuery) === 0 ) {
+              //  console.log(element)
+              newHistList.push(element); 
+            }
+            
+        })
+
+        // 
+        console.log(newHistList); 
+        this.state.historyList = [newHistList];
     }
 
     // Component did mount

@@ -5,6 +5,7 @@ import fbiBadge from "../Images/fbi-badge.png";
 import { AuthContext } from "../Auth/AuthContext"; 
 import withRouter from "./WithRouter"; 
 import { sweetAlert } from './SweetAlert'; 
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import "../Css/App.css"; 
 
@@ -41,75 +42,98 @@ class Login extends Component {
             password: password
         })
 
-        // Using Fetch request 
-        fetch('http://localhost:3001/login', {
-            method: 'POST', 
-            body: data, 
-            headers: { 'Content-type': 'application/json; charset=UTF-8'}
+        // 
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*', // Replace with your desired allowed origin
+              'Access-Control-Allow-Methods': 'POST', // Specify allowed methods
+              'Access-Control-Allow-Headers': 'Content-Type', // Specify allowed headers
+            },
+        };
+
+        // Using Axios 
+        axios.post('http://localhost:3001/login', data, config)
+        .then(response => {
+            // Handle the response data 
+            console.log(response); 
         })
-        // Convert the response data into a json object
-        .then(response => response.json())
-        .then(data => {
-            // Checking if the user was validated 
-            if (data.status === "success") {
-                // Getting the function for setting the token 
-                // and loggedIn value to be true 
-                let { setToken } = this.context; 
-                localStorage.setItem("x-auth-token", data['x-auth-token']);
-                setToken(data["x-auth-token"])
-
-                setTimeout(() => {
-                    // Navigating the user 
-                    this.props.router.navigate('/dashboard')
-                    window.location.reload(); 
-
-                }, 3000)
-
-                // Using swal alert 
-                Swal.fire({
-                    title: "Login Successful!",
-                    text: "You are now logged in!",
-                    icon: "success",
-                    button: "Okay..",
-                })
-                
-                .then((result) => {
-                    // 
-                    if (result.isConfirmed) {
-        
-                        setTimeout(() => {
-                            // Navigating the user 
-                            this.props.router.navigate('/dashboard')
-                            window.location.reload(); 
-
-                        }, 200)
-
-                    }
-
-                    // 
-                    else {
-                        // Navigating the user 
-                        // this.props.router.navigate('/dashboard')
-                        window.location.reload();
-                    }
-
-                })
-
-            } 
-
-            // Else if the user was not validated 
-            else {
-                // alert("Invalid email or password")
-                sweetAlert('error', 'Invalid email or password', 'Invalid email or password')
-                
-            }
-    
-        })
-
-        // On error
         .catch(error => {
+            // Handle any errors 
             console.log(error); 
         })
+   
+
+        // fetch('http://localhost:3001/login', {
+        //     method: 'POST', 
+        //     body: data, 
+        //     mode: 'no-cors', 
+        // })
+        // .then(response => response.json())
+        // .then((data) => {
+        //     console.log(data); 
+        // })
+        // .then(data => {
+        //     // Checking if the user was validated 
+        //     if (data.status === "success") {
+        //         // Getting the function for setting the token 
+        //         // and loggedIn value to be true 
+        //         let { setToken } = this.context; 
+        //         localStorage.setItem("x-auth-token", data['x-auth-token']);
+        //         setToken(data["x-auth-token"])
+
+        //         setTimeout(() => {
+        //             // Navigating the user 
+        //             this.props.router.navigate('/dashboard')
+        //             window.location.reload(); 
+
+        //         }, 3000)
+
+        //         // Using swal alert 
+        //         Swal.fire({
+        //             title: "Login Successful!",
+        //             text: "You are now logged in!",
+        //             icon: "success",
+        //             button: "Okay..",
+        //         })
+                
+        //         .then((result) => {
+        //             // 
+        //             if (result.isConfirmed) {
+        
+        //                 setTimeout(() => {
+        //                     // Navigating the user 
+        //                     this.props.router.navigate('/dashboard')
+        //                     window.location.reload(); 
+
+        //                 }, 200)
+
+        //             }
+
+        //             // 
+        //             else {
+        //                 // Navigating the user 
+        //                 // this.props.router.navigate('/dashboard')
+        //                 window.location.reload();
+        //             }
+
+        //         })
+
+        //     } 
+
+        //     // Else if the user was not validated 
+        //     else {
+        //         // alert("Invalid email or password")
+        //         sweetAlert('error', 'Invalid email or password', 'Invalid email or password')
+                
+        //     }
+    
+        // })
+
+        // // On error
+        // .catch(error => {
+        //     console.log(error); 
+        // })
 
         // console.log('email', email); 
         // console.log('password', password); 
