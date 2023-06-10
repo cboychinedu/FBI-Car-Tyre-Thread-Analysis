@@ -17,7 +17,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True;
 app.config['SECRET_KEY'] = "secret_key"; 
 
 # Setting the cors 
-CORS(app); 
+CORS(app, resources={r"/*": {"origins": "*"}}, allow_headers=["Content-Type", "Authorization", "x-auth-token"]); 
 
 # Register the views 
 app.register_blueprint(home, url_prefix="/")

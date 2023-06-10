@@ -18,7 +18,7 @@ class ErrorPage extends Component {
 
          <div className="error-div">
             <h1 className="error-heading">
-                4 0 4
+                Error 4 0 4
             </h1>
             <p> You didn't break the internet, but we can't find what you are
                 looking for.

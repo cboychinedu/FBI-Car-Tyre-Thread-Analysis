@@ -24,7 +24,7 @@ class Login extends Component {
 
         // Checking if the forms are valid 
         if (email === '') {
-            // Using swee Alert to display the info 
+            // Using sweet Alert to display the info 
             sweetAlert('info', 'Email required', 'Please fill in your email address'); 
             return; 
         }
@@ -42,7 +42,7 @@ class Login extends Component {
             password: password
         })
 
-        // 
+        // Setting the headers 
         const config = {
             headers: {
               'Content-Type': 'application/json',
@@ -52,91 +52,66 @@ class Login extends Component {
             },
         };
 
-        // Using Axios 
+        // Using Axios to make request to the server 
         axios.post('http://localhost:3001/login', data, config)
         .then(response => {
             // Handle the response data 
             console.log(response); 
+
+            // Checking if the user data was validate 
+            if (response.data.status === "success") {
+                // Execute the block of code below if the status was successful 
+                // And set the loggedIn value to be true 
+                let { setToken } = this.context; 
+                localStorage.setItem("x-auth-token", response.data["x-auth-token"]); 
+                setToken(response.data["x-auth-token"])
+
+                // Delay the login duration for 3000 miniseconds 
+                setTimeout(() => {
+                    // Navigating the user 
+                    this.props.router.navigate('/dashboard')
+                    window.location.reload(); 
+                }, 3000)
+
+                // Using swal alert 
+                Swal.fire({
+                    title: "Login Successfully!", 
+                    text: "You are now logged in!", 
+                    icon: "Success", 
+                    button: "Okay...", 
+                })
+                .then((result) => {
+                    // If the user clicked the button okay 
+                    if (result.isConfirmed) {
+                        // Delay, and redirect the user to the dashboard page 
+                        setTimeout(() => {
+                            // Navigating the user 
+                            this.props.router.navigate("/dashboard"); 
+                            window.location.reload(); 
+                        }, 200)
+
+                    }
+                    // Else if the user did not click 
+                    else {
+                        // Navigating the user 
+                        this.props.router.navigate('/dashboard'); 
+                        window.location.reload();
+                    }
+                })
+            }
+
+            // Else if the data from the request was an error 
+            else {
+                // Using sweetAlert 
+                sweetAlert('error', 'Invalid email or password', 'Invalid email or password')
+            }
         })
+        // On error connecting to the database server, execute the 
+        // line of code below 
         .catch(error => {
             // Handle any errors 
             console.log(error); 
         })
-   
-
-        // fetch('http://localhost:3001/login', {
-        //     method: 'POST', 
-        //     body: data, 
-        //     mode: 'no-cors', 
-        // })
-        // .then(response => response.json())
-        // .then((data) => {
-        //     console.log(data); 
-        // })
-        // .then(data => {
-        //     // Checking if the user was validated 
-        //     if (data.status === "success") {
-        //         // Getting the function for setting the token 
-        //         // and loggedIn value to be true 
-        //         let { setToken } = this.context; 
-        //         localStorage.setItem("x-auth-token", data['x-auth-token']);
-        //         setToken(data["x-auth-token"])
-
-        //         setTimeout(() => {
-        //             // Navigating the user 
-        //             this.props.router.navigate('/dashboard')
-        //             window.location.reload(); 
-
-        //         }, 3000)
-
-        //         // Using swal alert 
-        //         Swal.fire({
-        //             title: "Login Successful!",
-        //             text: "You are now logged in!",
-        //             icon: "success",
-        //             button: "Okay..",
-        //         })
-                
-        //         .then((result) => {
-        //             // 
-        //             if (result.isConfirmed) {
-        
-        //                 setTimeout(() => {
-        //                     // Navigating the user 
-        //                     this.props.router.navigate('/dashboard')
-        //                     window.location.reload(); 
-
-        //                 }, 200)
-
-        //             }
-
-        //             // 
-        //             else {
-        //                 // Navigating the user 
-        //                 // this.props.router.navigate('/dashboard')
-        //                 window.location.reload();
-        //             }
-
-        //         })
-
-        //     } 
-
-        //     // Else if the user was not validated 
-        //     else {
-        //         // alert("Invalid email or password")
-        //         sweetAlert('error', 'Invalid email or password', 'Invalid email or password')
-                
-        //     }
-    
-        // })
-
-        // // On error
-        // .catch(error => {
-        //     console.log(error); 
-        // })
-
-        // console.log('email', email); 
-        // console.log('password', password); 
     }
 
     // Rendering 

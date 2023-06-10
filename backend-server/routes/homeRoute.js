@@ -1,17 +1,19 @@
 // Importing the necessary modules
+const fs = require('fs'); 
 const express = require('express');
 const session = require('express-session');
 const mongodb_session = require('connect-mongodb-session')(session);
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto-js'); 
 const { routeLogger, rootPath } = require('../base.js')
 const { USERS, USERSHISTORY } = require('../models/validation.js');
-const joi = require('joi');
+const { decryptImageBlob } = require('../models/decryptImage.js')
 const bcrypt = require('bcrypt');
+const { decode } = require('punycode');
 
 // Creating the router object
 const router = express.Router();
-
 
 // Setting a route for logging
 router.post("/logging", async (req, res) => {
@@ -176,20 +178,42 @@ router.post("/uploadImage", async(req, res) => {
 
         })
 
-        // Getting the data
-        let dateData = Date();
-        dateData = dateData.split("GMT+0100")[0];
-        dateData = dateData.toString().trimEnd();
-
         // if the user is present on the database,
         // execute the block of code below
         if (user) {
+            // Getting the data
+            let dateData = Date();
+            dateData = dateData.split("GMT+0100")[0];
+            dateData = dateData.toString().trimEnd();
+
             // Getting the uploaded image
-            const image = req.files.image;
+            const Data = req.body;
+
+            // Getting the encryption key, and the initilization vector 
+            const encryptionKey = process.env.ENCRYPTION_KEY; 
+            const iv = process.env.INITIALIZATION_VECTOR; 
+            
+            // Decoding the "ImageData" from AES cypther-text into a base64 encoded 
+            // format 
+            const imageBuffer = decryptImageBlob(Data['ImageData'], encryptionKey, iv); 
+            console.log(imageBuffer); 
+
+            // 
+            fs.writeFile("cara.jpg", imageBuffer, (error) => {
+                if (error) throw error; 
+
+                else {
+                    // 
+                    console.log('Image saved successfully.')
+                }
+            })
+
+            return; 
+
+        
 
             // giving the name by the id value
-            let imageName = dateData + '.' + image['name'].split('.')[1];
-
+            let imageName = dateData + '.' + encodedData['ImageName'].split('.')[1];
             imageName = String(imageName);
 
             // Setting the path to the image
@@ -250,6 +274,7 @@ router.post("/uploadImage", async(req, res) => {
             return res.status(404).send(errorMessage);
         }
     }
+
     // Catch block
     catch (error) {
         // Log the error 

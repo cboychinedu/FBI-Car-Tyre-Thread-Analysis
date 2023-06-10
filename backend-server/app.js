@@ -1,5 +1,4 @@
 // Importing the necessary modules
-const fs = require('fs');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const fileupload = require('express-fileupload');
@@ -9,6 +8,9 @@ const { ObjectId } = require('mongodb');
 const mongodb = require('mongoose');
 const morgan = require('morgan');
 const chalk = require('chalk');
+
+// Loading the env variables 
+require('dotenv').config(); 
 
 // Setting the data base URI
 const databaseURI = "mongodb://localhost:27017/car_tyre_analysis";
@@ -49,19 +51,20 @@ app.use(cors({
         'Access-Control-Allow-Methods', 
         'access-control-allow-orign', 
         'Access-Control-Allow-Origin', 
-        ' Access-Control-Allow-Headers'
+        'Access-Control-Allow-Headers', 
+        'x-auth-token', 
     ]
 }))
 
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(fileupload())
 app.use(express.static('static'));
 app.use(express.static('./static/uploads')); 
 app.use(express.static('./static/javascript'));
 app.use(express.static('./static/templates'));
 app.use(express.static('./static/css'));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(morgan('tiny'));
 
 // Setting the views

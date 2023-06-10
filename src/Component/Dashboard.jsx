@@ -10,6 +10,7 @@ import profileImage from "../Images/profile-image.png";
 import { AuthContext } from "../Auth/AuthContext";
 import threadImage from '../Images/car-type-thread-image.jpg'
 import { Button, Message } from "semantic-ui-react";
+import { AES } from "crypto-js"; 
 import '../Css/App.css';
 
 // Creating the class componenet
@@ -20,8 +21,9 @@ class Dashboard extends Component {
         firstname: "",
         lastname: "",
         email: "",
-        selectedFile: null,
+        encryptedData: null,
         imageName: "",
+        selectedFile: null, 
         imagePath: uploadImage || "",
     }
 
@@ -30,49 +32,81 @@ class Dashboard extends Component {
 
     // On file select (from the pop up)
     onFileChange = (event) => {
-        // console.log('file change')
-        // Update the state
-        this.setState({
-            selectedFile: event.target.files[0]
-        })
+        // Creating the reader object 
+        const reader = new FileReader(); 
+        const file = event.target.files[0]; 
 
-        // event.target.files = null
+        // If the file was uploaded 
+        if (file) {
+            // Read the image file as a data url 
+            reader.readAsDataURL(file); 
+        }
+
+        // Converting the image into base64 encoding, and then 
+        // encrypt the image using AES algorithm 
+        reader.onloadend = () => {
+            // Getting the base64 encoding 
+            const base64String = reader.result.split(',')[1]; 
+
+            // Getting the encryption key 
+            const key = process.env.REACT_APP_ENCRYPTION_KEY; 
+
+            // Getting the initilization vector 
+            const iv = process.env.REACT_APP_INITIALIZATION_VECTOR; 
+
+            // Encrypting the image base64 encoded text using AES 
+            let encryptedData = AES.encrypt(base64String, key, {iv}); 
+            encryptedData = encryptedData.toString(); 
+
+            // Updating the state 
+            this.setState({
+                encryptedData: encryptedData, 
+                imageName: file.name, 
+                selectedFile: file, 
+            })
+        }
+
     }
 
     // On file upload (click the upload button)
     onFileUpload = () => {
-        // Create an object of formData
-        const formData = new FormData();
+        // Creating the json object from the encoded data saved in the 
+        // state variable 
+        let encodedData = JSON.stringify({
+            ImageName: this.state.imageName, 
+            ImageData: this.state.encryptedData, 
+        })
 
-        // Update the formData object
-        formData.append(
-            "image",
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        );
+        // Setting the request headers 
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*', // Replace with your desired allowed origin
+              'Access-Control-Allow-Methods': 'POST', // Specify allowed methods
+              'Access-Control-Allow-Headers': 'Content-Type',  
+              'x-auth-token': localStorage.getItem("x-auth-token"),
+            }
+        }; 
 
         // Details of the uploaded file
-        axios.post("http://localhost:3001/uploadImage", formData, {
-            headers: {
-                // 'Content-Type': 'application/json',
-                'x-auth-token': localStorage.getItem("x-auth-token"),
-            }
-        })
+        axios.post("http://localhost:3001/uploadImage", encodedData, config)
         .then((request) => {
-            // Checking request
-            if (request.data.status === "success") {
-                // Getting the image name
-                let imageName = request.data.imagePath;
-                imageName = imageName.split("/uploads/")[1];
-                imageName = imageName.trimEnd();
+            console.log(request); 
 
-                // Setting the state
-                this.setState({
-                    //
-                    imagePath: `http://localhost:3001/${imageName}`,
-                    imageName: imageName,
-                })
-            }
+            // Checking request
+            // if (request.data.status === "success") {
+            //     // Getting the image name
+            //     let imageName = request.data.imagePath;
+            //     imageName = imageName.split("/uploads/")[1];
+            //     imageName = imageName.trimEnd();
+
+            //     // Setting the state
+            //     // this.setState({
+            //     //     //
+            //     //     imagePath: `http://localhost:3001/${imageName}`,
+            //     //     imageName: imageName,
+            //     // })
+            // }
 
         });
     }
@@ -123,6 +157,7 @@ class Dashboard extends Component {
                     <li style="list-style: none; font-size: 27px; padding-bottom: 19px; color: #712424;"> Thread Analysis: ${data['AnalysisResult']} </li>
                     <li style="list-style: none; font-size: 18px; padding-bottom: 19px;"> Tyre Type: <b> ${data['ThreadType']} </b> </li>
                     <li style="list-style: none;"> Status: ${data['status']} </li>
+                  </ul> 
                 </div>
 
               `,
